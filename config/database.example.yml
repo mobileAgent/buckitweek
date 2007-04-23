@@ -31,6 +31,6 @@ test:
 production:
   adapter: mysql
   database: buckitweek_production
-  username: root
+  username: admin
   password: 
   host: localhost

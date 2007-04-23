@@ -1,0 +1,56 @@
+        <fieldset>
+          <legend>Personal Info</legend>
+
+        <p>
+          <label for="registration_first_name" class="col1">First Name<span class="req">*</span></label>
+          <%= text_field 'registration', 'first_name', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_middle_name" class="col1">Middle Name:</label>
+          <%= text_field 'registration', 'middle_name', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_last_name" class="col1">Last Name<span class="req">*</span></label>
+          <%= text_field 'registration', 'last_name', :size => 50 %>
+        </p>
+
+        <p>
+          <label for="registration_age_range_id" class="col1">Age Range<span class="req">*</span></label>
+          <%= select('registration', 'age_range_id', AgeRange.find(:all).collect {|p| [p.to_s,p.id] }, { :include_blank => true }) %>
+        </p>
+        <p>
+          <label for="registration_gender_m" class="col1">Gender<span class="req">*</span></label>
+          [ Male<%= radio_button 'registration', 'gender', 'M' %> ]
+          [ Female<%= radio_button 'registration', 'gender', 'F' %> ]
+        </p>
+      </fieldset>
+
+      <fieldset>
+         <legend>Contact Info</legend>
+
+        <p>
+          <label for="registration_phone" class="col1">Phone<span class="req">*</span></label>
+          <%= text_field 'registration', 'phone', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_address1" class="col1">Address Line 1<span class="req">*</span></label>
+          <%= text_field 'registration', 'address1', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_address2" class="col1">Address Line 2:</label>
+          <%= text_field 'registration', 'address2', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_city" class="col1">City<span class="req">*</span></label>
+          <%= text_field 'registration', 'city', :size => 50 %>
+        </p>
+        <p>
+          <label for="registration_state" class="col1">State<span class="req">*</span></label>
+          <%= text_field 'registration', 'state', {:size => 2, :maxlength => 2} %> 
+        </p>
+        <p>
+          <label for="registration_zip_code" class="col1">Zip<span class="req">*</span></label>
+          <%= text_field 'registration', 'zip_code', { :size => 10, :maxlength => 10}%>
+        </p>
+     </fieldset>
+

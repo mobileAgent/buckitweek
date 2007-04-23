@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en">
+  <head>
+    <title>BUCKIT Week 2007<%= " - #{@title}" if @title %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <%= stylesheet_link_tag 'buckit', :media => 'all' %>
+  </head>
+  <body>
+
+   <div id="header">
+      <span class="logotxt primcolor"><span class="k8">BU</span>CKIT</span>
+      <%= image_tag 'bible_boy.jpg', :alt => 'Buckit Week', :size => '130x90', :title => 'Buckit Week' %>
+      <span class="logotxt altcolor">WEEK</span>
+
+      <ul id="topnav">
+        <li><%= link_to_unless_current 'Home', :controller => 'welcome', :action => 'index' %></li>
+        <li>|</li>
+        <li><%= link_to_unless_current 'Bios', :controller => 'welcome', :action => 'bios' %></li>
+        <li>|</li>
+        <li><%= link_to_unless_current 'Faq', :controller => 'welcome', :action => 'faq' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Contact', :controller => 'welcome', :action => 'contact' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => 'register' %></li>
+      </ul>
+   </div>
+
+   <p style="color: green"><%= flash[:notice] %></p>
+
+   <div id="content">
+     <%= yield %>
+   </div>
+
+   <div id="footer">
+      http://www.<span class="primcolor">buckit</span><span class="altcolor">week</span>.org/
+      <br />
+      &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, Search the Scriptures, 2007
+   </div>
+ </body>
+</html>

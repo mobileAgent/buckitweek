@@ -1,0 +1,22 @@
+expire sessions
+   invoice DONE
+   email password reset DONE
+   email invoice DONE
+
+reg form disable when full
+count of seats left?
+
+  reg update DONE
+  account create during reg DONE
+  acount login during reg create DONE
+  user change password DONE
+
+
+session fixation
+
+
+   list/edit reg DONE (scaffolded)
+   record payment DONE (scaffolded)
+email reg users (or just get email list)
+
+ 

@@ -1,0 +1,21 @@
+y1:
+        low: 14
+        high: 17
+y2:
+        low: 18
+        high: 22
+y3:
+        low: 23
+        high: 26
+y4:
+        low: 27
+        high: 30
+y5:
+        low: 31
+        high: 40
+y6:
+        low: 41
+        high: 50
+y7:
+        low: 51
+        high: 100

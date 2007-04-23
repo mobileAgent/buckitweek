@@ -1,0 +1,324 @@
+.strong {
+  font-weight: bold;
+}
+.big { 
+  font-size: 1.2em;
+}
+.large { 
+  font-size: 2em;
+}
+.larger { 
+  font-size: 3em;
+}
+.ln { 
+  font-variant: small-caps;
+}
+blockquote { 
+   margin-right: 10%;
+}
+ul {
+  list-style-type: square;
+}
+h1 { 
+  font-size: 1.5em;
+  font-weight: bold;
+  color: darkblue;
+}
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: darkblue;  
+}
+h3 {
+  font-size: 1em;
+  font-weight: bold;
+  color: darkblue;  
+}
+h4 {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: darkblue;  
+}
+h5 {
+  font-size: 0.7em;
+  font-weight: bold;
+  color: darkblue;  
+}
+h6 { 
+  font-size: 0.6em;
+  font-weight: bold;
+  color: darkblue;
+}
+fieldset {
+  border: 2px solid #bbb;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+legend, .standout { 
+  color: darkblue;
+  font-weight: bold;
+}
+label { 
+  font-weight: bold;
+  color: darkblue;
+  text-align: left;
+  font-size: .9em;
+}
+div.row { 
+  clear: both;
+  padding: 10px;
+}
+.primcolor {
+   color: darkblue;
+}
+.altcolor {
+   color: darkred;
+}
+.searchword { 
+  background-color: yellow;
+}
+.col1 {
+  float: left;
+  width: 15%; 
+  text-align: right;
+  padding-right: 5px;
+}
+.col2 {
+  float: right;
+  width: 80%;
+  text-align: left;
+}
+#header {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+}
+img {
+  border: none;
+}
+
+a.iconlink {
+  text-decoration: none;
+}
+
+#content {
+  width: 88%;
+  margin-left: 5%;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+div.centered {
+  width: 88%;
+  margin-right: 5%;
+  margin-left: 5%;
+  text-align: center;
+
+}
+ul.nav {
+  list-style-type: none;
+  list-style-image: none;
+}
+ul.nav li {
+  display: inline;
+  font-weight: bold;
+  font-variant: small-caps;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}
+ul.nav li a:hover {
+  border-bottom: 2px solid darkblue;
+}
+ul.nav li a { 
+  text-decoration: none;
+}
+ol a, ol a:visited {
+  color: darkblue;
+  text-decoration: underline;
+}
+ol a:active, ol a:hover { 
+  color: darkblue;
+  font-weight: bold;
+  text-decoration: none;
+}
+#topnav {
+  margin: 0;
+  padding: 0 10px 5px 10px;
+}
+#topnav ul { 
+  list-style-type: none
+}
+#topnav li { 
+  margin: 0;
+  padding: 0;
+  display: inline;
+  color: darkred;
+  font-size: +1em;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  font-variant: small-caps;
+}
+#topnav a {
+  color: darkblue;
+  margin: 0 10px 4px 10px;
+  text-decoration: none;
+}
+#topnav a:hover, #topnav a:active, #topnav a.active { 
+  border-bottom: 4px solid darkblue;
+  padding-bottom: 2px;
+  color: darkblue;
+}
+
+a.nav {
+  font-weight: bold;
+  color: darkblue;
+  text-decoration: none;
+}
+a.nav:hover, a.nav:active { 
+  color: darkblue;
+  border-bottom: 2px solid darkblue;
+}
+#leftcol {
+  float: left;
+  clear: left;
+  width: 46%;
+}
+
+#rightcol {
+  float: right;
+  clear: right;
+  width: 46%;
+  margin-right: 1%;
+  text-align: center;
+}
+
+div.main {
+  clear: both;
+}
+
+.cap {
+  color: darkblue;
+  font-weight: bold;
+  font-size: +3em;
+  line-height: 0.8em;
+  float: left;
+  padding-bottom: 0;
+}
+#footer {
+  clear: both;
+  color: black;
+  font-size: .7em;
+  text-align: center;
+  margin-right: 5%;
+  margin-left: 5%;
+  width: 88%;
+}
+
+.sm {
+  font-size: 0.7em;
+}
+input[type='text'], input[type='password'], select, input[type='radio'] {
+  background-color: #feb;
+  border: 1px solid #26a;
+  margin-bottom: 0;
+}
+
+div.fieldWithErrors {
+  display: inline;
+}
+
+div.fieldWithErrors input, div.fieldWithErrors select {
+  border: 1px solid red;
+}
+
+input[type='text']:focus, input[type='password']:focus { 
+  border: 2px solid darkblue;
+}
+.invisifield { 
+   display: none;
+}
+.nodec {
+  text-decoration: none;
+}
+.scripturebox { 
+   text-align: center; 
+   width: 75%; 
+   margin-left: 12%; 
+   border: 2px inset black; 
+   color: darkblue; 
+   padding: 6px;
+   font-size: 1.3em;
+   font-family: Arial Black, Verdana Bold, sans-serif;
+   background-color: #e3efec;
+}
+.scripturebox li {
+  text-align: left;
+  font-variant: normal;
+}
+
+.scripturebox .ref { 
+   text-align: right;
+}
+p.err, div.err { 
+  font-weight: bold;
+  color: red;
+}
+
+span.new {
+  background-color: yellow;
+  font-size: 0.6em;
+  font-weight: bold;
+  vertical-align: super;
+}
+
+th a, th a:visited {
+  color: white;
+  text-decoration: none;
+}
+
+tr.sep td {
+  line-height: 0.1em;
+  background-color: gray;
+  color: gray;
+  border: 0;
+  border-bottom: 2px solid gray;
+}
+tr.hidden {
+  display: none;
+}
+td.sc {
+  text-align: center;
+}
+
+.logotxt {
+   font-size: 100px;
+   letter-spacing: -3px;
+}
+.k1 { letter-spacing: -1px; }
+.k2 { letter-spacing: -2px; }
+.k3 { letter-spacing: -3px; }
+.k4 { letter-spacing: -4px; }
+.k5 { letter-spacing: -5px; }
+.k6 { letter-spacing: -6px; }
+.k7 { letter-spacing: -7px; }
+.k8 { letter-spacing: -8px; }
+.k9 { letter-spacing: -9px; }
+.k10 { letter-spacing: -10px; }
+
+abbr {
+  text-decoration: none;
+  border-bottom: none;
+}
+
+span.req {
+  font-weight: bold;
+  color: darkred;
+}
+
+
+
+/* This is not valid CSS */
+fieldset {
+  -moz-border-radius: .5em;
+}
+/* End Invalid CSS Section */

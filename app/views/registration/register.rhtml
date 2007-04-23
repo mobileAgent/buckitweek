@@ -1,0 +1,56 @@
+<div class="registration-form">
+
+
+     <h2>Register For BuckitWeek</h2>
+
+     <div class="err">
+     <%= error_messages_for 'user' %>
+     <%= error_messages_for 'registration' %>
+     </div>
+
+     <% if ! @user %>
+     <h3>Already registered or have an account with us? <%= link_to 'Login first!', :controller => 'login', :action => 'login' %></h3>
+     <% end %>
+     <% form_tag :action => ( @user && !@user.new_record? && !@registration.new_record? ? 'update' : 'create') do %>
+        <% if ! @user || @user.new_record? %>
+           <%= render :partial => 'accountform' %>
+        <% else %>
+            <fieldset>
+               <legend>Account Info</legend>
+
+                 <ul class="nav">
+                     <% if ! @registration.new_record? %>
+                     <li><%= link_to 'Delete my registration', {:controller => 'registration', :action => 'delete'}, :confirm => 'Are you sure?', :method => 'POST' %></li>
+                     <li>|</li>
+                     <li><%= link_to 'Show my invoice', :controller => 'registration', :action => 'invoice' %></li>
+                     <li>|</li>
+                     <% end %>
+                     <li><%= link_to 'Change Password', :controller => 'user', :action => 'change_password' %></li>
+                     <li>|</li>
+                     <li><%= link_to 'Logout', :controller => 'login', :action => 'logout' %></li>
+                 </ul>
+               
+               <p><label for="reg_user" class="col1">User: </label><span id="reg_user" class="altcolor strong"><%=h @user.email%></span></p>
+
+
+              <% if ! @registration.new_record? %>
+                 <p><label for="reg_email" class="col1">Balance Due: </label><span id="reg_email" class="altcolor strong"><%= number_to_currency(@registration.amount_owed, :precision => 2)%></span></p>
+              <% else %>
+                  <p><label for="reg_fee" class="col1">Registration fee: </label><span id="reg_fee"><%=h "$#{@event.registration_cost}.00"%></span></p>
+              <% end %>
+            </fieldset>
+        <% end %>
+
+        <%= render :partial => 'form' %>
+        
+        <p>
+          <% if @user && ! @registration.new_record? %>
+             <%= submit_tag "Update Registration", :class => "Submit" %>
+          <% else %>
+             <%= submit_tag "Register", :class => "Submit" %>
+          <% end %>
+        </p>
+
+   <% end %>
+ </fieldset>
+</div>

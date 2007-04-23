@@ -1,0 +1,24 @@
+<div class="centered">
+<h1><span class="primcolor">Buckit</span><span class="altcolor">Week</span><span class="primcolor">2007</span> Invoice for <%=h "#{@registration.first_name} #{@registration.last_name}"%></h1>
+</div>
+
+<h2>Address</h2>
+<p>
+<%=h "#{@registration.first_name} #{@registration.middle_name} #{@registration.last_name}"%><br />
+<%=h "#{@registration.address1}"%><br />
+<% if ! @registration.address2.nil? && @registration.address2.length > 0 %>
+<%=h "#{@registration.address2}"%><br />
+<% end %>
+<%=h "#{@registration.city} #{@registration.state} #{@registration.zip_code}" %>
+</p>
+
+<h2>Contact Info</h2>
+<p>
+Email: <%=h "#{@user.email}"%><br />
+Phone: <%=h "#{@registration.phone}"%><br />
+</p>
+
+<h2>Payment Due</h2>
+<p>
+Amount due: <%=h number_to_currency(@registration.amount_owed, :precision => 2)%>
+</p>
