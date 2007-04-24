@@ -80,8 +80,8 @@ task :before_setup do
   sudo "mkdir -p /var/apps"
   sudo "chown -R #{user}:#{group} /var/apps/"
   sudo "mkdir -p /etc/mongrel_cluster"
-  sudo "mkdir -p #{path_to_webserver}conf/rails"
-  sudo "mkdir -p "/var/log/#{application}"
+  sudo "mkdir -p #{path_to_web_server}conf/rails"
+  sudo "mkdir -p /var/log/#{application}"
 end
 
 desc "Set up mongrel cluster configuration"
@@ -99,7 +99,7 @@ prefix: #{mongrel_prefix}
 
 EOF
 
-  put mongrel_configuration "#{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml"
+  put mongrel_configuration, "#{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml"
   sudo "ln -nfs #{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml /etc/mongrel_cluster/#{application}.yml"
   
 end
