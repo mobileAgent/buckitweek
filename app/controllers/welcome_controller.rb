@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
 
-  #caches_page :index, :bios, :faq, :contact
+  caches_page :index, :bios, :faq, :contact
   session :off
 
   def index
