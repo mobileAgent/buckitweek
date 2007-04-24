@@ -189,8 +189,8 @@ EOF
   put apache2_rails_configuration, "#{deploy_to}/#{shared_dir}/system/#{application}.conf"
   put apache2_rails_common, "#{deploy_to}/#{shared_dir}/system/#{application}.common"
   
-  run "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.conf #{user_http_conf}/#{application}.conf"
-  run "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.common #{user_http_conf}/#{application}.common"
+  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.conf #{user_http_conf}/#{application}.conf"
+  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.common #{user_http_conf}/#{application}.common"
 end
 
 desc "Tasks to execute after initial setup"
