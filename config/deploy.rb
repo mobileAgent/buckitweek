@@ -11,7 +11,7 @@
 # form the root of the application path.
 
 set :application, "buckitweek"
-set :repository, "http://flester.dyndns.org/#{application}/trunk"
+set :repository, "http://flester.dyndns.org/repos/#{application}/trunk"
 set :server_name, "buckitweek.org"
 
 # =============================================================================
@@ -56,8 +56,10 @@ set :user_http_conf, "/home/httpd/vhosts/#{server_name}/conf"
 set "mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 set :mongrel_prefix, "/usr/local/bin"
 set :mongrel_start_port, 3300
-set :mongrel_servers,3
+set :mongrel_servers, 3
 
+# mongrel has some replacements for restart and spinner:
+require 'mongrel_cluster/recipes'
 
 # =============================================================================
 # SSH OPTIONS
@@ -88,12 +90,13 @@ desc "Set up mongrel cluster configuration"
 task :mongrel_configuration_setup do
   # generate a mongrel_configuration file
   mongrel_configuration = render :template => <<-EOF
-----
+---
 cwd: #{deploy_to}/current
 port: "#{mongrel_start_port}"
 environment: production
 address: 127.0.0.1
-pid_file: /var/log/#{application}/mongrel.pid
+pid_file: #{deploy_to}/current/log/mongrel.pid
+log_file: #{deploy_to}/current/log/mongrel.log
 servers: #{mongrel_servers}
 prefix: #{mongrel_prefix}
 
@@ -137,7 +140,7 @@ EOF
 
   # Builds the mongrel cluster balancer
   (0..mongrel_servers-1).each{ |server|
-     apache2_rails_conf += " BalancerMember http://127.0.0.1:#{mongrel_start_port + server}\n"
+     apache2_rails_conf += "     BalancerMember http://127.0.0.1:#{mongrel_start_port + server}\n"
   }
   apache2_rails_conf += <<-EOF
   </Proxy>
@@ -158,7 +161,8 @@ EOF
 
   ServerName #{server_name}
   ServerAlias www.#{server_name}
-  UseCanonicalName Off  DocumentRoot #{deploy_to}/current/public
+  UseCanonicalName Off
+  DocumentRoot #{deploy_to}/current/public
   <Directory "#{deploy_to}/current/public">
       Options FollowSymLinks
       AllowOverride None
@@ -174,7 +178,7 @@ EOF
 
   # Check for maintenance file and redirect all requests to it
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-  RewriteCond %{SCRIPT_FILENAME}!maintenance.html
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
 
   #Rewrite index to check for static
@@ -189,7 +193,7 @@ EOF
   put apache2_rails_configuration, "#{deploy_to}/#{shared_dir}/system/#{application}.conf"
   put apache2_rails_common, "#{deploy_to}/#{shared_dir}/system/#{application}.common"
   
-  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.conf #{user_http_conf}/#{application}.conf"
+  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.conf #{user_http_conf}/httpd.include"
   sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.common #{user_http_conf}/#{application}.common"
 end
 
@@ -209,7 +213,6 @@ task :after_setup do
   # crontab_configuration_setup
 end
 
-  
 desc <<DESC
 An imaginary backup task. (Execute the 'show_tasks' task to display all
 available tasks.)
