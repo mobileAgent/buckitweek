@@ -183,6 +183,9 @@ EOF
 
   #Rewrite index to check for static
   RewriteRule ^/$ /index.html [QSA]
+
+  # Rewrite to check for Rails cached page
+  RewriteRule ^([^.]+)$ $1.html [QSA]
   
   # Redirect all non-static requests to mongrel cluster
   RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
