@@ -8,6 +8,7 @@ class UserController < ApplicationController
       @user.last_visit = Time.now
       if request.post? and @user.save
          flash.now[:notice] = "Account created for #{@user.email}"
+         session[:user_id] = @user.id
          uri = session[:original_uri]
          redirect_to(uri || {:controller => "welcome" , :action => "index"})
       end

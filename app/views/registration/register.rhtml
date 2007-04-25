@@ -1,12 +1,25 @@
 <div class="registration-form">
 
-
      <h2>Register For BuckitWeek</h2>
 
      <div class="err">
      <%= error_messages_for 'user' %>
      <%= error_messages_for 'registration' %>
      </div>
+
+     <% if @user && ! @user.new_record? %>
+        <ul class="nav">
+           <% if ! @registration.new_record? %>
+              <li><%= link_to 'Delete my registration', {:controller => 'registration', :action => 'delete'}, :confirm => 'Are you sure?', :method => 'POST' %></li>
+              <li>|</li>
+              <li><%= link_to 'Show my invoice', :controller => 'registration', :action => 'invoice' %></li>
+              <li>|</li>
+           <% end %>
+           <li><%= link_to 'Change Password', :controller => 'user', :action => 'change_password' %></li>
+           <li>|</li>
+           <li><%= link_to 'Logout', :controller => 'login', :action => 'logout' %></li>
+       </ul>
+    <% end %>
 
      <% if ! @user %>
      <h3>Already registered or have an account with us? <%= link_to 'Login first!', :controller => 'login', :action => 'login' %></h3>
@@ -17,19 +30,6 @@
         <% else %>
             <fieldset>
                <legend>Account Info</legend>
-
-                 <ul class="nav">
-                     <% if ! @registration.new_record? %>
-                     <li><%= link_to 'Delete my registration', {:controller => 'registration', :action => 'delete'}, :confirm => 'Are you sure?', :method => 'POST' %></li>
-                     <li>|</li>
-                     <li><%= link_to 'Show my invoice', :controller => 'registration', :action => 'invoice' %></li>
-                     <li>|</li>
-                     <% end %>
-                     <li><%= link_to 'Change Password', :controller => 'user', :action => 'change_password' %></li>
-                     <li>|</li>
-                     <li><%= link_to 'Logout', :controller => 'login', :action => 'logout' %></li>
-                 </ul>
-               
                <p><label for="reg_user" class="col1">User: </label><span id="reg_user" class="altcolor strong"><%=h @user.email%></span></p>
 
 

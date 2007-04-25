@@ -1,9 +1,14 @@
 class WelcomeController < ApplicationController
 
-  #caches_page :index, :bios, :faq, :contact
+  caches_page :index, :bios, :faq, :contact
   session :off
 
   def index
+  end
+
+  def flyer
+    @title = 'Flyer Layout'
+    render :action => 'index', :layout => 'flyer'
   end
 
   def bios
