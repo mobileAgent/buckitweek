@@ -315,10 +315,42 @@ span.req {
   color: darkred;
 }
 
+.listing {
+     width: 100%;
+     margin-left: 0%;
+     border-collapse: collapse;
+     border: 1px solid #e4e4e4;
+ }
+
+.listing th {
+     font-weight: bold;
+     padding: 5px;
+     text-align: left;
+     border-bottom: 1px solid #000;
+}
+
+.listing td {
+     padding: 5px;
+}
+
+.shaded td, .odd td {
+      background: #ebf9e8;
+}
+.even td {
+      background: #d8ddd7
+}
+.listing tbody tr {
+      border-bottom: 1px solid #fff;
+}
+
+.listing tbody tr:hover { 
+     border-bottom: 1px solid #a1c1d9;
+}
+
 
 
 /* This is not valid CSS */
-fieldset {
+fieldset, div.scripturebox {
   -moz-border-radius: .5em;
 }
 /* End Invalid CSS Section */

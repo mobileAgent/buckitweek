@@ -1,8 +1,8 @@
 class Registration < ActiveRecord::Base
 
-  has_one :age_range
-  has_one :user
-  has_one :event
+  belongs_to :age_range
+  belongs_to :user
+  belongs_to :event
 
   before_validation :normalize
 

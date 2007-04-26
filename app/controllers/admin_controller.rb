@@ -10,4 +10,10 @@ class AdminController < ApplicationController
      @title = 'Adminstration'
    end
 
+   def list_registration
+      @title = 'Admin - List Registered'
+      @registration_pages, @registrations =
+         paginate :registrations, :per_page => 25
+   end
+
 end
