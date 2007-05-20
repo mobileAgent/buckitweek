@@ -19,7 +19,11 @@ class LoginController < ApplicationController
           session[:original_uri] = nil
           session[:user_id] = user.id
           flash[:notice] = "Hi, #{user.email}!"
-          redirect_to(uri || {:controller => "welcome" , :action => "index"})
+          if user.admin?
+             redirect_to(uri || {:controller => "admin" , :action => "list_registration"})
+          else
+             redirect_to(uri || {:controller => "registration" , :action => "register"})
+           end
        else
           flash[:notice] = "The information you provided does not match our records"
        end
