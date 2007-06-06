@@ -16,7 +16,7 @@ require 'mongrel_cluster/recipes'
 # form the root of the application path.
 
 set :application, "buckitweek"
-set :repository, "http://flester.dyndns.org/repos/#{application}/trunk"
+set :repository, "http://flester.dyndns.org/repos/buckitweek/#{application}/trunk"
 set :server_name, "buckitweek.org"
 
 # =============================================================================
