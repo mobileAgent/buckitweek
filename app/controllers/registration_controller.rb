@@ -1,6 +1,6 @@
 class RegistrationController < ApplicationController
 
-  before_filter :authorize, :except => [:register, :index, :create]
+  before_filter :authorize, :except => [:register, :index, :create, :noregister]
   before_filter :setup, :only => [:index, :register, :invoice, :create, :delete]
 
   verify :method => :post, :only => [ :delete, :destroy, :create, :update ],
@@ -13,6 +13,10 @@ class RegistrationController < ApplicationController
 
    def register
      @title = 'Registration'
+   end
+
+   def noregister
+      @title = 'Registration'
    end
 
    def create
