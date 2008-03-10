@@ -36,8 +36,8 @@ role :db,  "#{server_name}", :primary => true
 # OPTIONAL VARIABLES
 # =============================================================================
 set :deploy_to, "/var/apps/#{application}"
-set :user, "buckitftp"         # defaults to the currently logged in user
-set :group, "psacln"
+set :user, "buckitweek"         # defaults to the currently logged in user
+set :group, "apache"
 
 set :svn_username, "mike"
 set :db_username, "bwpro"
@@ -50,15 +50,16 @@ set :keep_releases, 3
 
 # Web server
 set :web_server, "apache2"
-set :path_to_web_server, "/usr/local/apache2/"
+set :path_to_web_server, "/etc/httpd"
 set :web_server_port, 80
 
 # The Plesk friendly way...
-set :user_http_conf, "/home/httpd/vhosts/#{server_name}/conf"
+#set :user_http_conf, "/home/httpd/vhosts/#{server_name}/conf"
+set :user_http_conf, "#{path_to_web_server}/conf/rails"
 
 
 # Mongrel
-set "mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
+set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 set :mongrel_prefix, "/usr/local/bin"
 set :mongrel_start_port, 3300
 set :mongrel_servers, 3
@@ -84,14 +85,14 @@ task :before_setup do
   sudo "mkdir -p /var/apps"
   sudo "chown -R #{user}:#{group} /var/apps/"
   sudo "mkdir -p /etc/mongrel_cluster"
-  sudo "mkdir -p #{path_to_web_server}conf/rails"
+  sudo "mkdir -p #{path_to_web_server}/conf/rails"
   sudo "mkdir -p /var/log/#{application}"
 end
 
 desc "Set up mongrel cluster configuration"
 task :mongrel_configuration_setup do
   # generate a mongrel_configuration file
-  mongrel_configuration = render :template => <<-EOF
+  mongrel_configuration = <<-EOF
 ---
 cwd: #{deploy_to}/current
 port: "#{mongrel_start_port}"
@@ -104,8 +105,8 @@ prefix: #{mongrel_prefix}
 
 EOF
 
-  put mongrel_configuration, "#{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml"
-  sudo "ln -nfs #{deploy_to}/#{shared_dir}/config/mongrel_cluster.yml /etc/mongrel_cluster/#{application}.yml"
+  put mongrel_configuration, "#{deploy_to}/shared/config/mongrel_cluster.yml"
+  sudo "ln -nfs #{deploy_to}/shared/config/mongrel_cluster.yml /etc/mongrel_cluster/#{application}.yml"
   
 end
 
@@ -120,7 +121,7 @@ task :after_update_code, :roles => :app do
 
   # Clean up tmp and relink to shared for session and cache data
   sudo "rm -rf #{release_path}/tmp" # because it should not be in svn
-  run "ln -nfs #{deploy_to}/#{shared_dir}/tmp #{release_path}/tmp"
+  run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
 end
 
 desc "Setup apache configuration"
@@ -152,13 +153,13 @@ EOF
    </VirtualHost>
 EOF
    
-  apache2_rails_configuration = render :template => apache2_rails_conf
+  apache2_rails_configuration = apache2_rails_conf
   
-  apache2_rails_common = render :template => <<-EOF
+  apache2_rails_common = <<-EOF
 
-  ServerName #{server_name}
-  ServerAlias www.#{server_name}
-  UseCanonicalName Off
+#  ServerName #{server_name}
+#  ServerAlias www.#{server_name}
+#  UseCanonicalName Off
   DocumentRoot #{deploy_to}/current/public
   <Directory "#{deploy_to}/current/public">
       Options FollowSymLinks
@@ -190,22 +191,24 @@ EOF
   RewriteRule ^/(.*)$ balancer://#{application}_mongrel_cluster%{REQUEST_URI} [P,QSA,L]
 EOF
 
-  put apache2_rails_configuration, "#{deploy_to}/#{shared_dir}/system/#{application}.conf"
-  put apache2_rails_common, "#{deploy_to}/#{shared_dir}/system/#{application}.common"
+  put apache2_rails_configuration, "#{deploy_to}/shared/system/#{application}.conf"
+  put apache2_rails_common, "#{deploy_to}/shared/system/#{application}.common"
   
-  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.conf #{user_http_conf}/httpd.include"
-  sudo "ln -nfs #{deploy_to}/#{shared_dir}/system/#{application}.common #{user_http_conf}/#{application}.common"
+#  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.conf #{user_http_conf}/httpd.include"
+#  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.common #{user_http_conf}/#{application}.common"
+  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.conf #{user_http_conf}/#{application}.conf"
+  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.common #{user_http_conf}/#{application}.common"
 end
 
 desc "Tasks to execute after initial setup"
 task :after_setup do
   # Make shared config dir to hold config files
-  run "mkdir -p #{deploy_to}/#{shared_dir}/config"
+  run "mkdir -p #{deploy_to}/shared/config"
   # Make shared tmp for sessions
-  run "mkdir -p #{deploy_to}/#{shared_dir}/tmp"
-  run "mkdir -p #{deploy_to}/#{shared_dir}/tmp/sessions"
-  run "mkdir -p #{deploy_to}/#{shared_dir}/tmp/cache"
-  run "mkdir -p #{deploy_to}/#{shared_dir}/tmp/sockets"
+  run "mkdir -p #{deploy_to}/shared/tmp"
+  run "mkdir -p #{deploy_to}/shared/tmp/sessions"
+  run "mkdir -p #{deploy_to}/shared/tmp/cache"
+  run "mkdir -p #{deploy_to}/shared/tmp/sockets"
 
   mongrel_configuration_setup
   # database_configuration_setup
@@ -217,14 +220,15 @@ desc "Backup the remote production database"
 task :backup, :roles => :db, :only => { :primary => true } do
   filename = "#{application}.dump.#{Time.now.to_i}.sql.bz2"
   file = "/tmp/#{filename}"
-  on_rollback { delete file }
+  on_rollback { run "rm /tmp/#{filename}" }
   db = YAML::load_file("config/database.yml")
   run "mysqldump -u #{db['production']['username']} --password=#{db['production']['password']} #{db['production']['database']} | bzip2 -c > #{file}"  do |ch, stream, data|
     puts data
   end
   `mkdir -p #{File.dirname(__FILE__)}/../backups/`
   get file, "backups/#{filename}"
-  delete file
+  #delete file
+  run "rm /tmp/#{filename}"
 end
 
 desc "Backup the database before running migrations"
