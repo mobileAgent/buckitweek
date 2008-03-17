@@ -3,7 +3,7 @@ class InvoiceNotification < ActionMailer::Base
   def invoice(user,registration)
      @recipients = user.email
      @from = 'registrar@buckitweek.org'
-     #@bcc = 'registrar@buckitweek.org'
+     @bcc = 'registrar@buckitweek.org'
      @sent_on = Time.now
      @subject = 'Your invoice for BuckitWeek 2008'
      @headers = {}
