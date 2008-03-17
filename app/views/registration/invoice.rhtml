@@ -1,5 +1,5 @@
 <div class="centered">
-<h1><span class="primcolor">Buckit</span><span class="altcolor">Week</span><span class="primcolor">2007</span> Invoice for <%=h "#{@registration.first_name} #{@registration.last_name}"%></h1>
+<h1><span class="primcolor">Buckit</span><span class="altcolor">Week</span><span class="primcolor">2008</span> Invoice for <%=h "#{@registration.first_name} #{@registration.last_name}"%></h1>
 </div>
 
 <h2>Address</h2>
@@ -16,9 +16,19 @@
 <p>
 Email: <%=h "#{@user.email}"%><br />
 Phone: <%=h "#{@registration.phone}"%><br />
+Travel Phone: <%=h "#{@registration.mobile}"%><br />
+Shirt Size: <%=h "#{@registration.shirt}"%><br />      
 </p>
 
 <h2>Payment Due</h2>
 <p>
 Amount due: <%=h number_to_currency(@registration.amount_owed, :precision => 2)%>
+<br />
+You can make your check out to <strong>Buckit Week</strong>
+and mail it to
+      <blockquote>
+      Buckit Week c/o Craig Shakarji<br />
+      821 Diamond Drive<br />
+      Gaithersburg MD 20878
+      </blockquote>
 </p>

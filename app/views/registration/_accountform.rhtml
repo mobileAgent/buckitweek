@@ -2,17 +2,17 @@
           <legend>Account Info</legend>
 
         <p>
-          <label for="user_email" class="col1">Email Address:</label>
+          <label for="user_email" class="col1">Email Address<span class="req">*</span></label>
           <%= text_field 'user', 'email', :size => 50 %>
         </p>
 
         <p>
-          <label for="user_password" class="col1">Password:</label>
+          <label for="user_password" class="col1">Password<span class="req">*</span></label>
           <%= password_field 'user', 'password', :size => 50 %>
         </p>
 
         <p>
-          <label for="user_password_confirmation" class="col1">Confirm Password:</label>
+          <label for="user_password_confirmation" class="col1">Confirm Password<span class="req">*</span></label>
           <%= password_field 'user', 'password_confirmation', :size => 50 %>
         </p>
     </fieldset>

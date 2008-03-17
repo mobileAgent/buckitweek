@@ -1,0 +1,20 @@
+        
+  <% for registration in @registrations %>
+     <tr class='<%=cycle("odd","even")%>'>
+        <td><%=h "#{registration.last_name}, #{registration.first_name}" %></td>
+        <td><%=h registration.phone %></td>
+        <td><%=h registration.user.email %></td>
+        <td><%= tight_range registration.age_range %></td>
+        <td><%= registration.gender %></td>
+        <td><%=h registration.city %></td>
+        <td><%=h registration.state %></td>
+        <td><%= number_to_currency(registration.amount_owed, :precision => 2) %></td>
+        <td><%= short_date registration.created_at %></td>
+        <td>
+           <%= link_to 'View', :action => 'show_registration', :id => reg %>
+           <%= link_to 'Remove', { :action => 'destroy_registration',
+                                    :id => reg },
+                 :confirm => 'Are you sure?', :post => true %>
+        </td>
+     </tr>
+  <% end %>

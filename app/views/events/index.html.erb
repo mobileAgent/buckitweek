@@ -1,0 +1,32 @@
+<h1>Listing events</h1>
+
+<table>
+  <tr>
+    <th>Year</th>
+    <th>Location</th>
+    <th>Registration cost</th>
+    <th>Registration count</th>
+    <th>Max seats</th>
+    <th>Start date</th>
+    <th>End date</th>
+  </tr>
+
+<% for event in @events %>
+  <tr>
+    <td><%=h event.year %></td>
+    <td><%=h event.location %></td>
+    <td><%=h event.registration_cost %></td>
+    <td><%=h event.registration_count %></td>
+    <td><%=h event.max_seats %></td>
+    <td><%=h event.start_date %></td>
+    <td><%=h event.end_date %></td>
+    <td><%= link_to 'Show', event %></td>
+    <td><%= link_to 'Edit', edit_event_path(event) %></td>
+    <td><%= link_to 'Destroy', event, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New event', new_event_path %>

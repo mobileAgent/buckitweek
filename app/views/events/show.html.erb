@@ -1,0 +1,38 @@
+<p>
+  <b>Year:</b>
+  <%=h @event.year %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%=h @event.location %>
+</p>
+
+<p>
+  <b>Registration cost:</b>
+  <%=h @event.registration_cost %>
+</p>
+
+<p>
+  <b>Registration count:</b>
+  <%=h @event.registration_count %>
+</p>
+
+<p>
+  <b>Max seats:</b>
+  <%=h @event.max_seats %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%=h @event.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%=h @event.end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

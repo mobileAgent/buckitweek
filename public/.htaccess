@@ -1,40 +1,33 @@
-# General Apache options
-AddHandler fastcgi-script .fcgi
-AddHandler cgi-script .cgi
-Options +FollowSymLinks +ExecCGI
 
-# If you don't want Rails to look in certain directories,
-# use the following rewrite rules so that Apache won't rewrite certain requests
-# 
-# Example:
-#   RewriteCond %{REQUEST_URI} ^/notrails.*
-#   RewriteRule .* - [L]
-
-# Redirect all requests not available on the filesystem to Rails
-# By default the cgi dispatcher is used which is very slow
-# 
-# For better performance replace the dispatcher with the fastcgi one
+#  ServerName buckitweek.org
+#  ServerAlias www.buckitweek.org
+#  UseCanonicalName Off
+#  DocumentRoot /var/apps/buckitweek/current/public
+#  <Directory "/var/apps/buckitweek/current/public">
+#      Options FollowSymLinks
+#      AllowOverride None
+#      Order allow,deny
+#      Allow from all
+#  </Directory>
 #
-# Example:
-#   RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
-RewriteEngine On
+  RewriteEngine On
 
-# If your Rails application is accessed via an Alias directive,
-# then you MUST also set the RewriteBase in this htaccess file.
-#
-# Example:
-#   Alias /myrailsapp /path/to/myrailsapp/public
-#   RewriteBase /myrailsapp
+  # Uncomment for rewrite debugging
+#  RewriteLog logs/buckitweek_rewrite_log
+#  RewriteLogLevel 9
 
-RewriteRule ^$ index.html [QSA]
-RewriteRule ^([^.]+)$ $1.html [QSA]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ dispatch.cgi [QSA,L]
+  # Check for maintenance file and redirect all requests to it
+  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+  RewriteRule ^.*$ /system/maintenance.html [L]
 
-# In case Rails experiences terminal errors
-# Instead of displaying this message you can supply a file here which will be rendered instead
-# 
-# Example:
-#   ErrorDocument 500 /500.html
+  #Rewrite index to check for static
+  RewriteRule ^/$ index.html [QSA]
 
-ErrorDocument 500 "<h2>Application error</h2>Rails application failed to start properly"
+  # Rewrite to check for Rails cached page
+  RewriteRule ^([^.]+)$ /$1.html [QSA]
+  
+  # Redirect all non-static requests to mongrel cluster
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}.html !-f
+  RewriteRule ^(.*)$ balancer://buckitweek_mongrel_cluster%{REQUEST_URI} [P,QSA,L]

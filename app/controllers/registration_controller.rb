@@ -51,7 +51,7 @@ class RegistrationController < ApplicationController
 
    def update
      @user = User.find_by_id(session[:user_id])
-     @registration = Registration.find_first(:user_id => @user.id)
+     @registration = Registration.find(:first, :conditions => ["user_id = ?", @user.id])
      if @registration.update_attributes(params[:registration])
         flash[:notice] = 'Registration Updated'
      else
@@ -62,10 +62,9 @@ class RegistrationController < ApplicationController
 
    def delete
      if @registration && !@registration.new_record? && @registration.destroy
-        flash[:notice] = 'Registration deleted, sorry to see you go.'
-        redirect_to :controller => 'welcome', :action => 'message'
+        flash[:notice] = 'Registration deleted.'
      else
-        redirect_to :controller => 'welcome', :action => 'index'
+        redirect_to :controller => 'welcome', :action => 'index' and return
      end
    end
 
@@ -73,10 +72,18 @@ class RegistrationController < ApplicationController
 
    def setup
      @user = User.find_by_id(session[:user_id])
+     @event = Event.find_by_year(2008)
      @registration = @registration ||
-         (@user && Registration.find_first(:user_id => @user.id)) ||
+         (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @event.id ])) ||
          Registration.new(params[:registration])
-     @event = Event.find_by_year(2007)
+     if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
+        last_years_ev = Event.find_by_year(2007)
+        last_years_reg = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id, last_years_ev.id])
+         if last_years_reg
+            @registration = last_years_reg.clone
+            @registration.event_id = @event.id
+         end
+     end
    end
 
 end

@@ -3,9 +3,9 @@ class InvoiceNotification < ActionMailer::Base
   def invoice(user,registration)
      @recipients = user.email
      @from = 'registrar@buckitweek.org'
-     @bcc = 'registrar@buckitweek.org'
+     #@bcc = 'registrar@buckitweek.org'
      @sent_on = Time.now
-     @subject = 'Your invoice for BuckitWeek 2007'
+     @subject = 'Your invoice for BuckitWeek 2008'
      @headers = {}
      @body = make_invoice_text(user,registration)
   end
@@ -21,12 +21,19 @@ class InvoiceNotification < ActionMailer::Base
      end
      p1 += "#{registration.city} #{registration.state} #{registration.zip_code}\n"
 
-     p2 = "Phone:  #{registration.phone}\n"
+     p2 =  "Phone:  #{registration.phone}\n"
+     p2 += "Travel Phone: #{registration.mobile}\n"
+     p2 += "Shirt size: #{registration.shirt}\n"
      p2 += "Registration Time: #{registration.created_at}\n"
      p2 += "Amount due: $#{registration.amount_owed}.00\n"
+     p2 += "You can make your check payable to Buckit Week\n"
+     p2 += "And mail it to \n\n"
+     p2 += "                 Buckit Week c/o Craig Shakarji\n"
+     p2 += "                 821 Diamond Drive\n"
+     p2 += "                 Gaithersburg MD 20878\n"
 
-     p3 = "Thank you for registering for BuckitWeek 2007,\n"
-     p3 += "we are looking forward to seeing you on July 22!\n"
+     p3 = "Thank you for registering for BuckitWeek 2008,\n"
+     p3 += "we are looking forward to seeing you on July 27!\n"
      p3 += "Please contact registrar@buckitweek.org if you have any questions!\n"
 
      p4 = "You can change your registration details at the BuckitWeek\n"

@@ -6,7 +6,7 @@
           <%= text_field 'registration', 'first_name', :size => 50 %>
         </p>
         <p>
-          <label for="registration_middle_name" class="col1">Middle Name:</label>
+          <label for="registration_middle_name" class="col1">Middle Name</label>
           <%= text_field 'registration', 'middle_name', :size => 50 %>
         </p>
         <p>
@@ -23,6 +23,18 @@
           [ Male<%= radio_button 'registration', 'gender', 'M' %> ]
           [ Female<%= radio_button 'registration', 'gender', 'F' %> ]
         </p>
+        <p>
+           <label for="registration_shirt" class="col1">Shirt Size</label>
+           <select id="registration_shirt" name="registration[shirt]" size="1">
+              <option id="none"> </option>
+              <option id="s">s</option>
+              <option id="m">m</option>
+              <option id="l">l</option>
+              <option id="xl">xl</option>
+              <option id="xxl">xxl</option>
+              <option id="xxxl">xxxl</option>
+           </select>
+        </p>
       </fieldset>
 
       <fieldset>
@@ -33,11 +45,15 @@
           <%= text_field 'registration', 'phone', :size => 50 %>
         </p>
         <p>
+          <label for="registration_mobile" class="col1">Phone while traveling to Buckitweek<span class="req">*</span></label>
+          <%= text_field 'registration', 'mobile', :size => 50 %>
+        </p>
+        <p>
           <label for="registration_address1" class="col1">Address Line 1<span class="req">*</span></label>
           <%= text_field 'registration', 'address1', :size => 50 %>
         </p>
         <p>
-          <label for="registration_address2" class="col1">Address Line 2:</label>
+          <label for="registration_address2" class="col1">Address Line 2</label>
           <%= text_field 'registration', 'address2', :size => 50 %>
         </p>
         <p>

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 5) do
+ActiveRecord::Schema.define(:version => 6) do
 
   create_table "age_ranges", :force => true do |t|
     t.integer "low",  :null => false
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(:version => 5) do
     t.integer  "user_id",                                   :null => false
     t.string   "gender",       :limit => 1, :default => "", :null => false
     t.string   "zip_code"
+    t.string   "shirt"
+    t.string   "mobile"
   end
 
   create_table "users", :force => true do |t|

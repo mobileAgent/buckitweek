@@ -1,0 +1,12 @@
+<h1>Editing age_range</h1>
+
+<%= error_messages_for :age_range %>
+
+<% form_for(@age_range) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @age_range %> |
+<%= link_to 'Back', age_ranges_path %>

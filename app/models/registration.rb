@@ -17,6 +17,7 @@ class Registration < ActiveRecord::Base
   validates_length_of :state, :is => 2, :message => 'Please provide 2 letter state abbreviation'
   validates_format_of :zip_code, :with => /\A[0-9]{5}-?[0-9]*\Z/, :message => 'Bad zip code'
   validates_format_of :phone, :with => /\A[-0-9+., eExXtT()]{10,}\Z/, :message => 'That does not look like a phone number to me'
+  validates_format_of :mobile, :with => /\A[-0-9+., eExXtT()]{10,}\Z/, :message => 'That does not look like a phone number to me'
 
    private
 

@@ -1,4 +1,4 @@
-<h1>Current Registrations (<%= @registrations.size %>)</h1>
+<h1>Current Registrations</h1>
 
 <table class="listing" id="registration_listing">
   <thead>
@@ -16,28 +16,8 @@
      </tr>
   </thead>
   <tbody>
-  <% for reg in @registrations %>
-     <tr class='<%=cycle("odd","even")%>'>
-        <td><%=h "#{reg.last_name}, #{reg.first_name}" %></td>
-        <td><%=h reg.phone %></td>
-        <td><%=h reg.user.email %></td>
-        <td><%= tight_range reg.age_range %></td>
-        <td><%= reg.gender %></td>
-        <td><%=h reg.city %></td>
-        <td><%=h reg.state %></td>
-        <td><%= number_to_currency(reg.amount_owed, :precision => 2) %></td>
-        <td><%= short_date reg.created_at %></td>
-        <td>
-           <%= link_to 'View', :action => 'show_registration', :id => reg %>
-           <%= link_to 'Remove', { :action => 'destroy_registration',
-                                    :id => reg },
-                 :confirm => 'Are you sure?', :post => true %>
-        </td>
-     </tr>
-  <% end %>
+    <%= render :partial => 'registration', :collection => @registrations %>
   </tbody>
 </table>
 
-<%= link_to 'Previous page', { :page => @registration_pages.current.previous } if @registration_pages.current.previous %> 
-<%= link_to 'Next page', { :page => @registration_pages.current.next } if @registration_pages.current.next %> 
-
+<%= will_paginate @registrations %>
