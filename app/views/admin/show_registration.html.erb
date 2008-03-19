@@ -1,0 +1,14 @@
+<p><strong>Name</strong>: <%=h "#{@registration.first_name} #{@registration.middle_name} #{@registration.last_name} (#{@registration.gender})"%></p>
+<p><strong>Address</strong>:<%=h @registration.address1 %></p>
+<% if @registration.address2 %>
+<p>                         <%=h @registration.address2 %></p>
+<% end %>
+<p>                         <%=h "#{@registration.city} #{@registration.state} #{@registration.zip_code}" %></p>
+<p><strong>Phone</strong>:<%=h @registration.phone %></p>
+<p><strong>Mobile</strong>:<%=h @registration.mobile %></p>
+<p><strong>Age Range</strong>:<%=h tight_range @registration.age_range %></p>
+<p><strong>Shirt</strong>:<%=h @registration.shirt %></p>
+<p><strong>Amount Paid/Balance:</strong>:<%=h "#{number_to_currency(@registration.amount_paid,:precision => 2)} / #{number_to_currency(@registration.amount_owed,:precision => 2)}" %></p>
+<p><strong>Registered</strong>:<%=h short_date @registration.created_at %></p>
+
+<%= link_to 'Back to registration list', :action => 'list_registration' %>

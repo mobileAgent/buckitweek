@@ -18,11 +18,12 @@ class LoginController < ApplicationController
           #session = request.session # overwrite the current session
           session[:original_uri] = nil
           session[:user_id] = user.id
-          flash[:notice] = "Hi, #{user.email}!"
           if user.admin?
-             redirect_to(uri || {:controller => "admin" , :action => "list_registration"})
+             flash[:notice] = "Kenichiwa, #{user.email}! (Adminstrator)"
+             redirect_to(uri || {:controller => "admin" , :action => "list_registration"}) and return
           else
-             redirect_to(uri || {:controller => "registration" , :action => "register"})
+             flash[:notice] = "Hi, #{user.email}!"
+             redirect_to(uri || {:controller => "registration" , :action => "register"}) and return
            end
        else
           flash[:notice] = "The information you provided does not match our records"
@@ -32,7 +33,7 @@ class LoginController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    redirect_to :controller => "welcome", :action => "index"
+    redirect_to :controller => "welcome", :action => "index" and return
   end
 
   def forgotten_password
@@ -52,7 +53,7 @@ class LoginController < ApplicationController
            flash[:notice] = "The information you provided does not match our records"
         end
      end
-     redirect_to :controller => 'login', :action => 'login'
+     redirect_to :controller => 'login', :action => 'login' and return
   end
 
   private

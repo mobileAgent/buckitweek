@@ -1,0 +1,19 @@
+<tr class='<%=cycle("odd","even")%>'>
+     <td><%=h "#{reg.last_name}, #{reg.first_name}" %></td>
+     <td><%=h reg.user.email %></td>
+     <td><%=h reg.phone %></td>
+     <td><%=h reg.mobile %></td>
+     <td><%= tight_range reg.age_range %></td>
+     <td><%= reg.gender %></td>
+     <td><%=h reg.city %></td>
+     <td><%=h reg.state %></td>
+     <td><%=h reg.shirt %></td>
+     <td><%= number_to_currency(reg.amount_owed, :precision => 2) %></td>
+     <td><%= short_date reg.created_at %></td>
+     <td>
+        <%= link_to 'View', :action => 'show_registration', :id => reg %>
+        <%= link_to 'Remove', { :action => 'destroy_registration',
+                                 :id => reg },
+              :confirm => 'Are you sure?', :post => true %>
+     </td>
+</tr>

@@ -1,23 +1,29 @@
+<% if @registrations && @registrations.size > 0 %>
 <h1>Current Registrations</h1>
-
 <table class="listing" id="registration_listing">
   <thead>
      <tr>
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
+        <th>Mobile</th>
         <th>Age</th>
         <th>Gender</th>
         <th>City</th>
         <th>State</th>
+        <th>Shirt</th>
         <th>Balance</th>
         <th>Created</th>
         <th><!-- actions --></th>
      </tr>
   </thead>
   <tbody>
-    <%= render :partial => 'registration', :collection => @registrations %>
+    <%= render :partial => 'reg', :collection => @registrations %>
   </tbody>
 </table>
 
-<%= will_paginate @registrations %>
+<% else %>
+ <p>Looks like no one has registered yet, sorry.</p>
+<% end %>
+
+<%= link_to 'Back to the Admin page', :controller => 'admin', :action => 'index' %>
