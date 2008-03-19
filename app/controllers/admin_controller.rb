@@ -29,7 +29,7 @@ class AdminController < ApplicationController
    def destroy_registration
       Registration.destroy(params[:id])
       flash[:notice] = 'One registration was deleted'
-      render :action => 'list_registration'
+      redirect_to :action => 'list_registration'
    end
       
 

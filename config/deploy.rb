@@ -59,7 +59,7 @@ set :user_http_conf, "#{path_to_web_server}/conf/rails"
 
 
 # Mongrel
-set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
+set :mongrel_conf, "#{deploy_to}/shared/config/mongrel_cluster.yml"
 set :mongrel_prefix, "/usr/local/bin"
 set :mongrel_start_port, 3300
 set :mongrel_servers, 3
