@@ -4,12 +4,13 @@
     <title>BUCKIT Week 2008<%= " - #{@title}" if @title %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <%= stylesheet_link_tag 'buckit', :media => 'all' %>
+    <%= javascript_include_tag 'logo' %>
   </head>
   <body>
 
    <div id="header">
       <span class="logotxt primcolor"><span class="k8">BU</span>CKIT</span>
-      <%= image_tag 'bible_man.jpg', :alt => 'Buckit Week', :size => '130x90', :title => 'Buckit Week' %>
+      <%= image_tag 'bible_man.jpg', :alt => 'Buckit Week', :size => '130x90', :title => 'Buckit Week', :id => 'logo_img' %>
       <span class="logotxt altcolor">WEEK</span>
 
       <ul id="topnav">
@@ -36,5 +37,8 @@
       <br />
       &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, 2007-2008
    </div>
+   <script><!--
+      insert_random_logo_for_id('logo_img','/images/logo','.jpg',7)
+   --></script>
  </body>
 </html>
