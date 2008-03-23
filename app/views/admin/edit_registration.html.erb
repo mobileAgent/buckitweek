@@ -1,0 +1,30 @@
+<div class="err">
+  <%= error_messages_for 'registration' %>
+</div>
+
+<% form_tag :action => 'update_registration' do %>
+
+  <fieldset>
+
+    <legend>Admin Info</legend>
+
+     <input type="hidden" id="id" name="id" value="<%= @registration.id %>"/>
+  
+     <p>
+        <label for="registration_amount_paid" class="col1">Amount Paid</label>
+        <%= text_field 'registration','amount_paid', :size => 5 %>
+     </p>
+
+     <p>
+        <label for="registration_amount_owed" class="col1">Amount Owed</label>
+        <%= text_field 'registration','amount_owed', :size => 5 %>
+     </p>
+  </fieldset>
+
+  <%= render :partial => 'registration/form' %>
+
+  <%= submit_tag "Update Registration", :class => "Submit" %>
+
+<% end %>
+
+<%= link_to 'Back to registration list', :action => 'list_registration' %>

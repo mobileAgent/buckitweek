@@ -25,15 +25,7 @@
         </p>
         <p>
            <label for="registration_shirt" class="col1">Shirt Size</label>
-           <select id="registration_shirt" name="registration[shirt]" size="1">
-              <option id="none"> </option>
-              <option id="s">s</option>
-              <option id="m">m</option>
-              <option id="l">l</option>
-              <option id="xl">xl</option>
-              <option id="xxl">xxl</option>
-              <option id="xxxl">xxxl</option>
-           </select>
+           <%= select('registration','shirt', ['s','m','l','xl','xxl','xxxl'], { :include_blan => true } ) %>
         </p>
       </fieldset>
 

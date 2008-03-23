@@ -6,13 +6,21 @@ class AdminController < ApplicationController
      @title = 'Adminstration'
    end
 
+   # GET /admin/list_registration
+   # GET /admin/list_registration.csv
    def list_registration
       @title = 'Admin - List Registered'
 #      @registration_pages, @registrations =
 #         paginate :registrations, :per_page => 25
-      @event = Event.find_by_year(2008)
+      @event = Event.find_by_year(Time.now.year)
       @registrations = Registration.find(:all, :conditions => ["event_id = ?",@event.id], :order => "last_name")
+    respond_to do |format|
+      format.html # list_registration.html.erb
+      format.xml  { render :xml => @registrations }
+      format.csv  # list_registration.csv.erb
+    end
    end
+
 
    def list_events
      @title = 'Admin - List Events'
@@ -26,10 +34,25 @@ class AdminController < ApplicationController
       @registration = Registration.find(params[:id])
    end
 
+   def edit_registration
+      @registration = Registration.find(params[:id])
+   end
+
+   def update_registration
+     @registration = Registration.find(params[:id])
+     if @registration && @registration.update_attributes(params[:registration])
+        flash[:notice] = "#{@registration.first_name} #{@registration.last_name} registration updated"
+        redirect_to :action => 'list_registration' and return
+     else
+       flash[:notice] = 'Update failed'
+       render :action => 'edit_registration'
+     end
+   end
+
    def destroy_registration
       Registration.destroy(params[:id])
       flash[:notice] = 'One registration was deleted'
-      redirect_to :action => 'list_registration'
+      redirect_to :action => 'list_registration' and return
    end
       
 

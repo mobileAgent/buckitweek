@@ -72,12 +72,12 @@ class RegistrationController < ApplicationController
 
    def setup
      @user = User.find_by_id(session[:user_id])
-     @event = Event.find_by_year(2008)
+     @event = Event.find_by_year(Time.now.year)
      @registration = @registration ||
          (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @event.id ])) ||
          Registration.new(params[:registration])
      if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
-        last_years_ev = Event.find_by_year(2007)
+        last_years_ev = Event.find_by_year(@event.year - 1)
         last_years_reg = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id, last_years_ev.id])
          if last_years_reg
             @registration = last_years_reg.clone

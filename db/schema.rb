@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 6) do
+ActiveRecord::Schema.define(:version => 7) do
 
   create_table "age_ranges", :force => true do |t|
     t.integer "low",  :null => false
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(:version => 6) do
     t.datetime "updated_at",                         :null => false
     t.datetime "start_date"
     t.datetime "end_date"
+  end
+
+  create_table "faqs", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "list_order"
+    t.boolean  "publish"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "registrations", :force => true do |t|

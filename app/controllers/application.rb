@@ -26,4 +26,13 @@ class ApplicationController < ActionController::Base
      end
   end
 
+  def admin?
+     if session[:user_id]
+        user = User.find_by_id(session[:user_id])
+        return user && user.admin?
+     end
+     return false
+  end
+        
+
 end

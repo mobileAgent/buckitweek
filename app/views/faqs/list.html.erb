@@ -1,0 +1,12 @@
+<h1>Frequently Asked Questions</h1>
+
+<% for faq in @faqs %>
+   <h2>[# <%= faq.list_order %> ]<%= faq.title %></h2>
+   <% if faq.publish %>
+      <%= ( unpublish ) %>
+   <% else %>
+      <%= ( publish ) %>
+   <% end %>
+   <p><%= faq.body %></p>
+   <hr />
+<% end %>

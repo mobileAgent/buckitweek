@@ -1,0 +1,2 @@
+"last name","first name","email","phone","mobile","addr","city","state","zip","shirt","gender","age range","balance"
+<%@registrations.each do |reg| %><%="\"#{reg.last_name}\",\"#{reg.first_name}\",\"#{reg.user.email}\",\"#{reg.phone}\",\"#{reg.mobile}\",\"#{reg.address1} #{reg.address2}\",\"#{reg.city}\",\"#{reg.state}\",\"#{reg.zip_code}\",\"#{reg.shirt}\",\"#{reg.gender}\",\"#{tight_range reg.age_range}\",\"#{number_to_currency(reg.amount_owed, :precision => 2)}\"\r\n"%><%  end %>
