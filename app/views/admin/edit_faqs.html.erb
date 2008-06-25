@@ -1,0 +1,15 @@
+<h1>Frequently Asked Questions</h1>
+
+<div class="err">
+  <%= error_messages_for 'faq' %>
+</div>
+
+<% for @faq in @faqs %>
+
+    <%= render :partial => 'faq_form' %>
+    <hr />
+
+<% end %>
+
+<h2>Add a new FAQ entry</h2>
+<%= render :partial => 'faq_form', :locals => { :faq => Faq.new } %>

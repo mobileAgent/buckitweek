@@ -10,6 +10,8 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @events }
+      format.yaml  { render :text => @events.to_yaml }
+      format.json  { render :text => @events.to_json }
     end
   end
 

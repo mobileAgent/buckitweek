@@ -37,7 +37,7 @@
           <%= text_field 'registration', 'phone', :size => 50 %>
         </p>
         <p>
-          <label for="registration_mobile" class="col1">Phone while traveling to Buckitweek<span class="req">*</span></label>
+          <label for="registration_mobile" class="col1">Phone while traveling<span class="req">*</span></label>
           <%= text_field 'registration', 'mobile', :size => 50 %>
         </p>
         <p>
@@ -61,4 +61,6 @@
           <%= text_field 'registration', 'zip_code', { :size => 10, :maxlength => 10}%>
         </p>
      </fieldset>
+     <input type=hidden name="wait_list" value="<%=@wait_list%>"/>
+      
 

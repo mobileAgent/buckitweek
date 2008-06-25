@@ -68,3 +68,6 @@ end
 # Include your application configuration below
 
 require 'will_paginate'
+require 'bluecloth'
+
+ExceptionNotifier.exception_recipients = %w(flester+buckit@gmail.com)

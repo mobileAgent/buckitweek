@@ -1,0 +1,29 @@
+<% form_tag :action => 'update_faq' do %>
+
+    <input type="hidden" id="id" name="id" value="<%=@faq.id%>"/>
+
+    <p>
+       <label for="faq_title" class="col1">Question:</label>
+       <%= text_field 'faq','title',:size => 70 %>
+    </p>
+
+    <p>
+       <label for="faq_list_order" class="col1">Order:</label>
+       <%= text_field 'faq','list_order', :size => 5 %>
+    </p>
+
+    <p>
+       <label for="faq_publish" class="col1">Publish:</label>
+       <%= check_box 'faq','publish' %>
+    </p>
+
+    <p>
+       <label for="faq.body" class="col1">Answer:</label>
+       <%= text_area 'faq','body', :size => '75x10' %>
+    </p>
+
+    <p><strong>Preview:</strong></p>
+    <h2><%=@faq.title%></h2>
+    <p><%= BlueCloth::new(@faq.body).to_html %></p>
+
+<% end %>

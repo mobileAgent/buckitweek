@@ -1,7 +1,7 @@
 class RegistrationController < ApplicationController
 
-  before_filter :authorize, :except => [:register, :index, :create, :noregister]
-  before_filter :setup, :only => [:index, :register, :invoice, :create, :delete]
+  before_filter :authorize, :except => [:register, :index, :create, :noregister, :register_wait_list, :registration_full]
+  before_filter :setup, :only => [:index, :register, :invoice, :create, :delete, :register_wait_list ]
 
   verify :method => :post, :only => [ :delete, :destroy, :create, :update ],
          :redirect_to => { :action => :register }
@@ -12,15 +12,37 @@ class RegistrationController < ApplicationController
    end
 
    def register
-     @title = 'Registration'
+     @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @event.id ]).size
+     if @event.max_seats > @num_registered
+        @title = 'Registration'
+        render
+     else
+        @title = "Registration Is Full #{@event.max_seats} vs #{@num_registered}"
+        render :action => 'registration_full'
+     end
+   end
+
+   def registration_full
+      @title = 'Registration Is Full'
+   end
+
+   def register_wait_list
+      @title = 'Waiting List Registration'
+      @wait_list = true
+      render :action => 'register'
    end
 
    def noregister
       @title = 'Registration'
    end
 
+   def waiting_list_thanks
+     @title = 'Thanks'
+   end
+
    def create
       @registration = Registration.new(params[:registration])
+      @wait_list = (params[:wait_list] == 'true')
       if !@user || @user.new_record?
          @user = User.new(params[:user])
          @user.last_visit = Time.now
@@ -36,9 +58,15 @@ class RegistrationController < ApplicationController
        @registration.event_id = @event.id
        @registration.amount_owed = @event.registration_cost
        if @registration.save
-          flash[:notice] = 'Registration created'
-          InvoiceNotification.deliver_invoice(@user, @registration)
-          redirect_to :action => 'invoice'
+          if @wait_list
+             flash[:notice] = 'You are on the waiting list!'
+             WaitlistNotification.deliver_invoice(@user, @registration)
+             redirect_to :action => 'waiting_list_thanks'
+          else
+             flash[:notice] = 'Registration created'
+             InvoiceNotification.deliver_invoice(@user, @registration)
+             redirect_to :action => 'invoice'
+          end
        else
           flash[:notice] = 'There was an error in your registration form'
           render :action => 'register'

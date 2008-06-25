@@ -54,6 +54,15 @@ class AdminController < ApplicationController
       flash[:notice] = 'One registration was deleted'
       redirect_to :action => 'list_registration' and return
    end
-      
+
+   def edit_faqs
+      @faqs = Faq.find(:all, :order => 'list_order')
+   end
+
+   def preview_faqs
+   end
+
+   def update_faqs
+   end
 
 end
