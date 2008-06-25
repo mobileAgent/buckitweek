@@ -347,6 +347,17 @@ span.req {
      border-bottom: 1px solid #a1c1d9;
 }
 
+th>a.sortheader {
+    color: darkblue;
+}
+
+th>a.sortheader:hover {
+     color: red;
+}
+
+.sortarrow {
+   display: none;
+}
 
 
 /* This is not valid CSS */
