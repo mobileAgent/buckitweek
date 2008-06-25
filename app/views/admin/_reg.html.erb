@@ -9,7 +9,7 @@
      <td><%=h reg.state %></td>
      <td><%=h reg.shirt %></td>
      <td><%= number_to_currency(reg.amount_owed, :precision => 2) %></td>
-     <td><!-- <%= reg.created_at.iso8601 %> --><%= short_date reg.created_at %></td>
+     <td sortby='<%=reg.created_at.iso8601 %>'><%= short_date reg.created_at %></td>
      <td>
          
         <%= link_to image_tag('delete.gif', :alt => 'Delete', :size => '16x16', :title => 'Delete'), { :action => 'destroy_registration',

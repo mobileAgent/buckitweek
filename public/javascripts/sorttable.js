@@ -36,6 +36,9 @@ function ts_makeSortable(table) {
 function ts_getInnerText(el) {
 	if (typeof el == "string") return el;
 	if (typeof el == "undefined") { return el };
+        var itm = el.getAttribute('sortby');
+        if (itm && itm.length > 0)
+           return itm;
 	if (el.innerText) return el.innerText;	//Not needed but it is faster
 	var str = "";
 	
@@ -77,11 +80,13 @@ function ts_resortTable(lnk,clid) {
     }
     
     // Work out a type for the column
-    var itm = ts_getInnerText(table.tBodies[0].rows[idx].cells[column]);
+    var cell = table.tBodies[0].rows[idx].cells[column];
+    var itm = ts_getInnerText(cell); 
     sortfn = ts_sort_caseinsensitive;
     if (itm.match(/^\d\d[\/-]\d\d[\/-]\d\d\d\d$/)) sortfn = ts_sort_date;
     if (itm.match(/^\d\d[\/-]\d\d[\/-]\d\d$/)) sortfn = ts_sort_date;
     if (itm.match(/^--\d\d\d\d--$/)) sortfn = ts_sort_date;
+    if (itm.match(/^\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\d-\d\d:\d\d$/)) sortfn = ts_sort_date_iso8601;
     if (itm.match(/^[-\d]{2}[\/-][-\d]{2}[\/-]\d\d$/)) sortfn = ts_sort_date;
     if (itm.match(/^[£$]/)) sortfn = ts_sort_currency;
     if (itm.match(/^[\d\.]+$/)) sortfn = ts_sort_numeric;
@@ -205,6 +210,71 @@ function ts_sort_date(a,b) {
   }  else {
     return ayr - byr;
   }
+}
+
+function ts_sort_date_iso8601(a,b) {
+  if (a && a.cells && a.cells.length >= SORT_COLUMN_INDEX)
+    aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]);
+  else
+    aa = '0000-00-00T00:00:00-00:00'
+  if (b && b.cells && b.cells.length >= SORT_COLUMN_INDEX)
+    bb = ts_getInnerText(b.cells[SORT_COLUMN_INDEX]);
+  else
+    bb = '0000-00-00T00:00:00-00:00'
+
+  var ayr = aa.substr(0,4);
+  var amo = aa.substr(5,2);
+  var aday = aa.substr(8,2);
+  var ahr = aa.substr(11,2);
+  var amin = aa.substr(14,2);
+  var asec = aa.substr(16,2);
+
+  var byr = bb.substr(0,4);
+  var bmo = bb.substr(5,2);
+  var bday = bb.substr(8,2);
+  var bhr = bb.substr(11,2);
+  var bmin = bb.substr(14,2);
+  var bsec = bb.substr(16,2);
+
+  if (isNaN(ayr)) ayr = 0;
+  if (isNaN(amo)) amo = 0;
+  if (isNaN(aday)) aday = 0;
+  if (isNaN(ahr)) ahr = 0;
+  if (isNaN(amin)) amin = 0;
+  if (isNaN(asec)) asec = 0;
+  
+  if (isNaN(byr)) byr = 0;
+  if (isNaN(bmo)) bmo = 0;
+  if (isNaN(bday)) bday = 0;
+  if (isNaN(bhr)) bhr = 0;
+  if (isNaN(bmin)) bmin = 0;
+  if (isNaN(bsec)) bsec = 0;
+
+  if (ayr != byr)
+  {
+     return (ayr - byr) * 365 * 24 * 60 * 60;
+  }
+  if (amo != bmo)
+  {
+     return (amo - bmo) * 31 * 24 * 60 * 60 ;
+  }
+  if (aday != bday)
+  {
+     return (aday - bday) * 24 * 60 * 60;
+  }
+  if (ahr != bhr)
+  {
+     return (ahr - bhr) * 60 * 60;
+  }
+  if (amin != bmin)
+  {
+     return (amin - bmin) * 60;
+  }
+  if (asec != bsec)
+  {
+     return asec - bsec;
+  }
+  return 0;
 }
 
 function ts_sort_currency(a,b) { 
