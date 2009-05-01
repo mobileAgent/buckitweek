@@ -5,7 +5,7 @@
 require 'yaml'
 
 # mongrel has some replacements for restart and spinner:
-require 'mongrel_cluster/recipes'
+#require 'mongrel_cluster/recipes'
 
 # =============================================================================
 # REQUIRED VARIABLES
