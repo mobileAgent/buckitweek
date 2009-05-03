@@ -13,6 +13,7 @@ require 'yaml'
 # form the root of the application path.
 
 set :application, "buckitweek"
+set :scm, 'git'
 set :repository,  "git@github.com:mobileAgent/buckitweek.git"
 set :branch, "master"
 set :repository_cache, "git_master"
