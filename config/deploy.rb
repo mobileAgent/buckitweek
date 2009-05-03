@@ -4,9 +4,6 @@
 
 require 'yaml'
 
-# mongrel has some replacements for restart and spinner:
-#require 'mongrel_cluster/recipes'
-
 # =============================================================================
 # REQUIRED VARIABLES
 # =============================================================================
@@ -16,7 +13,13 @@ require 'yaml'
 # form the root of the application path.
 
 set :application, "buckitweek"
-set :repository, "http://flester.dyndns.org/repos/buckitweek/#{application}/trunk"
+set :repository,  "git@github.com:mobileAgent/buckitweek.git"
+set :branch, "master"
+set :repository_cache, "git_master"
+set :deploy_via, :remote_cache
+set :git_shallow_clone, 1
+set :scm_verbose, true
+
 set :server_name, "buckitweek.org"
 
 # =============================================================================
@@ -39,11 +42,7 @@ set :deploy_to, "/var/apps/#{application}"
 set :user, "buckitweek"         # defaults to the currently logged in user
 set :group, "apache"
 
-set :svn_username, "mike"
 set :db_username, "bwpro"
-
-# Make svn to an export rather than checkout
-set :checkout, "export"
 
 # How much to keep on a cleanup task
 set :keep_releases, 3
@@ -58,13 +57,6 @@ set :web_server_port, 80
 set :user_http_conf, "#{path_to_web_server}/conf/rails"
 
 
-# Mongrel
-set :mongrel_conf, "#{deploy_to}/shared/config/mongrel_cluster.yml"
-set :mongrel_prefix, "/usr/local/bin"
-set :mongrel_start_port, 3300
-set :mongrel_servers, 3
-
-# =============================================================================
 # SSH OPTIONS
 # =============================================================================
 # ssh_options[:keys] = %w(/path/to/my/key /path/to/another/key)
@@ -79,35 +71,17 @@ set :mongrel_servers, 3
 # must match the options given for the servers to select (like :primary => true)
 
 
+desc "Restarting mod_rails with restart.txt"
+task :restart, :roles => :app, :except => { :no_release => true } do
+  run "touch #{current_path}/tmp/restart.txt"
+end
 
 desc "Tasks before initial setup"
 task :before_setup do
   sudo "mkdir -p /var/apps"
   sudo "chown -R #{user}:#{group} /var/apps/"
-  sudo "mkdir -p /etc/mongrel_cluster"
   sudo "mkdir -p #{path_to_web_server}/conf/rails"
   sudo "mkdir -p /var/log/#{application}"
-end
-
-desc "Set up mongrel cluster configuration"
-task :mongrel_configuration_setup do
-  # generate a mongrel_configuration file
-  mongrel_configuration = <<-EOF
----
-cwd: #{deploy_to}/current
-port: "#{mongrel_start_port}"
-environment: production
-address: 127.0.0.1
-pid_file: #{deploy_to}/current/log/mongrel.pid
-log_file: #{deploy_to}/current/log/mongrel.log
-servers: #{mongrel_servers}
-prefix: #{mongrel_prefix}
-
-EOF
-
-  put mongrel_configuration, "#{deploy_to}/shared/config/mongrel_cluster.yml"
-  sudo "ln -nfs #{deploy_to}/shared/config/mongrel_cluster.yml /etc/mongrel_cluster/#{application}.yml"
-  
 end
 
 desc "After updating the code populate a new database.yml"
@@ -124,82 +98,6 @@ task :after_update_code, :roles => :app do
   run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
 end
 
-desc "Setup apache configuration"
-task :apache_configuration_setup do
-  # generate a webserver configuration
-  apache2_rails_conf = <<-EOF
-  <VirtualHost #{server_name}:#{web_server_port}>
-    Include #{user_http_conf}/#{application}.common
-    ErrorLog #{path_to_web_server}/logs/#{application}_errors_log
-    CustomLog #{path_to_web_server}logs/#{application}_log combined
-  </VirtualHost>
-  <Proxy balancer://#{application}_mongrel_cluster>
-EOF
-
-  # Builds the mongrel cluster balancer
-  (0..mongrel_servers-1).each{ |server|
-     apache2_rails_conf += "     BalancerMember http://127.0.0.1:#{mongrel_start_port + server}\n"
-  }
-  apache2_rails_conf += <<-EOF
-  </Proxy>
-
-   Listen #{mongrel_start_port + 81}
-   <VirtualHost #{server_name}:#{mongrel_start_port+81}>
-      <Location />
-         SetHandler balancer-manager
-         Deny from all
-         Allow from localhost
-      </Location>
-   </VirtualHost>
-EOF
-   
-  apache2_rails_configuration = apache2_rails_conf
-  
-  apache2_rails_common = <<-EOF
-
-#  ServerName #{server_name}
-#  ServerAlias www.#{server_name}
-#  UseCanonicalName Off
-  DocumentRoot #{deploy_to}/current/public
-  <Directory "#{deploy_to}/current/public">
-      Options FollowSymLinks
-      AllowOverride None
-      Order allow,deny
-      Allow from all
-  </Directory>
-
-  RewriteEngine On
-
-  # Uncomment for rewrite debugging
-  #RewriteLog logs/#{application}_rewrite_log
-  #RewriteLogLevel 9
-
-  # Check for maintenance file and redirect all requests to it
-  RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-  RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-  RewriteRule ^.*$ /system/maintenance.html [L]
-
-  #Rewrite index to check for static
-  RewriteRule ^/$ /index.html [QSA]
-
-  # Rewrite to check for Rails cached page
-  RewriteRule ^([^.]+)$ $1.html [QSA]
-  
-  # Redirect all non-static requests to mongrel cluster
-  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-  RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME}.html !-f
-  RewriteRule ^/(.*)$ balancer://#{application}_mongrel_cluster%{REQUEST_URI} [P,QSA,L]
-EOF
-
-  put apache2_rails_configuration, "#{deploy_to}/shared/system/#{application}.conf"
-  put apache2_rails_common, "#{deploy_to}/shared/system/#{application}.common"
-  
-#  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.conf #{user_http_conf}/httpd.include"
-#  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.common #{user_http_conf}/#{application}.common"
-  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.conf #{user_http_conf}/#{application}.conf"
-  sudo "ln -nfs #{deploy_to}/shared/system/#{application}.common #{user_http_conf}/#{application}.common"
-end
-
 desc "Tasks to execute after initial setup"
 task :after_setup do
   # Make shared config dir to hold config files
@@ -209,11 +107,6 @@ task :after_setup do
   run "mkdir -p #{deploy_to}/shared/tmp/sessions"
   run "mkdir -p #{deploy_to}/shared/tmp/cache"
   run "mkdir -p #{deploy_to}/shared/tmp/sockets"
-
-  mongrel_configuration_setup
-  # database_configuration_setup
-  apache_configuration_setup
-  # crontab_configuration_setup
 end
 
 desc "Backup the remote production database"

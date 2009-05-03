@@ -105,11 +105,10 @@ class RegistrationController < ApplicationController
          (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @event.id ])) ||
          Registration.new(params[:registration])
      if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
-        last_years_ev = Event.find_by_year(@event.year - 1)
-        last_years_reg = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id, last_years_ev.id])
+        last_years_reg = Registration.find_by_user_id(@user.id, :order => 'updated_at desc')
          if last_years_reg
-            @registration = last_years_reg.clone
-            @registration.event_id = @event.id
+           @registration = last_years_reg.clone
+           @registration.event_id = @event.id
          end
      end
    end
