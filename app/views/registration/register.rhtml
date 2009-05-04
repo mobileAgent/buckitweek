@@ -24,7 +24,7 @@
     <% end %>
 
      <% if ! @user %>
-     <h3>Already registered or have an account with us? &raquo; <%= link_to 'Login first!', :controller => 'login', :action => 'login' %></h3>
+     <h3>Already registered or have an account from a previous year? &raquo; <%= link_to 'Login first!', :controller => 'login', :action => 'login' %></h3>
      <% end %>
      <% form_tag :action => ( @user && !@user.new_record? && !@registration.new_record? ? 'update' : 'create') do %>
         <% if ! @user || @user.new_record? %>
