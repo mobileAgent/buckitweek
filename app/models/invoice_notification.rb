@@ -29,10 +29,10 @@ class InvoiceNotification < ActionMailer::Base
      p2 += "You can make your check payable to Buckit Week\n"
      p2 += "And mail it to \n\n"
      p2 += "                 Buckit Week c/o Craig Shakarji\n"
-     p2 += "                 3 Arch Place # 425"
+     p2 += "                 3 Arch Place # 425\n"
      p2 += "                 Gaithersburg MD 20878\n"
 
-     p3 = "Thank you for registering for BuckitWeek 2008,\n"
+     p3 = "Thank you for registering for BuckitWeek 2009,\n"
      p3 += "we are looking forward to seeing you on July 26!\n"
      p3 += "Please contact registrar@buckitweek.org if you have any questions!\n"
 
