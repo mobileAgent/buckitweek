@@ -5,7 +5,7 @@ class WaitlistNotification < ActionMailer::Base
      @from = 'registrar@buckitweek.org'
      @bcc = 'registrar@buckitweek.org'
      @sent_on = Time.now
-     @subject = 'BuckitWeek 2008 Waiting List'
+     @subject = 'BuckitWeek 2009 Waiting List'
      @headers = {}
      @body = make_invoice_text(user,registration)
   end
@@ -25,7 +25,7 @@ class WaitlistNotification < ActionMailer::Base
      p2 += "Travel Phone: #{registration.mobile}\n"
      p2 += "Shirt size: #{registration.shirt}\n"
 
-     p3 = "Thank you for your interest for BuckitWeek 2008,\n"
+     p3 = "Thank you for your interest for BuckitWeek 2009,\n"
      p3 += "You have been added to the waiting list and we will contact you\n"
      p3 += "if more slots become available.\n"
      p3 += "Please contact registrar@buckitweek.org if you have any questions!\n"

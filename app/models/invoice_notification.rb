@@ -5,7 +5,7 @@ class InvoiceNotification < ActionMailer::Base
      @from = 'registrar@buckitweek.org'
      @bcc = 'registrar@buckitweek.org'
      @sent_on = Time.now
-     @subject = 'Your invoice for BuckitWeek 2008'
+     @subject = 'Your invoice for BuckitWeek 2009'
      @headers = {}
      @body = make_invoice_text(user,registration)
   end
