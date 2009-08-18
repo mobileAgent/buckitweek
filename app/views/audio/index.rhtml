@@ -1,0 +1,12 @@
+<h1>BUCKITWeek Audio Files</h1>
+
+<ul>
+<% @files.each do |file| %>
+  <% next if file.index /secret/ %>
+  <% title = file.gsub(/.mp3/,'').gsub(/#{RAILS_ROOT}\/public\/audio\//,'').gsub(/_/," ").gsub(/-/,' - ') %>
+  <% href = file.gsub(/#{RAILS_ROOT}\/public/,'').gsub(/ +/,"%20") %>
+  <li>
+    <a href="<%=href%>" title="<%=title%>"><%=title%></a>
+  </li>
+<% end %>
+</ul>

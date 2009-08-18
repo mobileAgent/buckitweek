@@ -97,6 +97,7 @@ task :after_update_code, :roles => :app do
   # Clean up tmp and relink to shared for session and cache data
   sudo "rm -rf #{release_path}/tmp" # because it should not be in svn
   run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
+  run "ln -nfs #{deploy_to}/shared/audio #{current_release}/public/audio"
 end
 
 desc "Tasks to execute after initial setup"

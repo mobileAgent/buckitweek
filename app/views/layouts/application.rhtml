@@ -24,7 +24,9 @@
         <li>|</li>
 	<li><%= link_to_unless_current 'Contact', :controller => 'welcome', :action => 'contact' %></li>
         <li>|</li>
-	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => 'register' %></li>
+	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => 'noregister' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Audio', :controller => 'audio', :action => 'index' %></li>
       </ul>
    </div>
 

@@ -8,7 +8,7 @@ class RegistrationController < ApplicationController
 
    def index
       @title = 'Registration'
-      render :action => 'register'
+      render :action => 'noregister'
    end
 
    def register
