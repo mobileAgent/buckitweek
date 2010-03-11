@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < Test::Unit::TestCase
-  fixtures :users
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_normal_user_is_valid
+    u = Factory.build(:user)
+    assert u.valid?
   end
+  
 end

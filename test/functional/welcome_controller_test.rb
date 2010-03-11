@@ -1,18 +1,21 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'welcome_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class WelcomeController; def rescue_action(e) raise e end; end
-
-class WelcomeControllerTest < Test::Unit::TestCase
-  def setup
-    @controller = WelcomeController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+class WelcomeControllerTest < ActionController::TestCase
+  
+  test "should get index without any events" do
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:main_event)
+    assert_not_nil assigns(:event_year)
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
+  test "should get index with event loaded" do
+    e = Factory.create(:event, :registration_cost => 77, :start_date => Date.today + 365)
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:main_event)
+    assert_not_nil assigns(:event_year)
+    assert_select 'li', /.*Registration Cost: \$77/
+  end    
+  
 end

@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class FaqTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_normal_faq_is_valid
+    a = Factory.build(:faq)
+    assert a.valid?
   end
 end

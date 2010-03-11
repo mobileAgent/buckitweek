@@ -1,20 +1,21 @@
 <div class="centered">
 <h1 class="altcolor">Get a firmer grip on key concepts in the Word of God</h1>
 
-<div class="scripturebox vevent" title="BUCKIT Week 2009">
-  <span class="summary">BUCKIT<span class="altcolor">WEEK</span>2009</span>
-<!--  
-<ul>
-  <li> Teachers: Craig Shakarji and Jabe Nicholson</li>
-  <li class="location">Country Inn and Suites<br />&nbsp;Hagerstown, Maryland</li>
-  <li> Registration Cost: $75</li>
-  <li> <abbr class="dtstart" title="2009-07-26">July 26</abbr> - <abbr class="dtend" title="2009-08-01">31</abbr>, 2009</li>
-  <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
-</ul>
--->
+<div class="scripturebox vevent" title="BUCKIT Week <%= @event_year %>">
+  <span class="summary">BUCKIT<span class="altcolor">WEEK</span><%= @event_year %></span>
+  <% if @main_event %>
   <ul>
-    <li>It's gone! Look out for BUCKIT Week 2010!</li>
+    <li> Teachers: Craig Shakarji and Jabe Nicholson</li>
+    <li class="location"><%= @main_event.location %></li>
+    <li> Registration Cost: $<%= @main_event.registration_cost %></li>
+    <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>
+    <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
   </ul>
+  <% else %>
+  <ul>
+    <li>Details for BUCKIT Week <%= @event_year%> have not been announced yet.</li>
+  </ul>
+  <% end %>
 </div>
 </div>
 

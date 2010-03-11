@@ -12,12 +12,12 @@ class RegistrationController < ApplicationController
    end
 
    def register
-     @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @event.id ]).size
-     if @event.max_seats > @num_registered
+     @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @main_event.id ]).size
+     if @main_event.max_seats > @num_registered
         @title = 'Registration'
         render
      else
-        @title = "Registration Is Full #{@event.max_seats} vs #{@num_registered}"
+        @title = "Registration Is Full #{@main_event.max_seats} vs #{@num_registered}"
         render :action => 'registration_full'
      end
    end
@@ -55,8 +55,8 @@ class RegistrationController < ApplicationController
          end
        end
        @registration.user_id = @user.id
-       @registration.event_id = @event.id
-       @registration.amount_owed = @event.registration_cost
+       @registration.event_id = @main_event.id
+       @registration.amount_owed = @main_event.registration_cost
        if @registration.save
           if @wait_list
              flash[:notice] = 'You are on the waiting list!'
@@ -100,15 +100,14 @@ class RegistrationController < ApplicationController
 
    def setup
      @user = User.find_by_id(session[:user_id])
-     @event = Event.find_by_year(Time.now.year)
      @registration = @registration ||
-         (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @event.id ])) ||
+         (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @main_event.id ])) ||
          Registration.new(params[:registration])
      if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
         last_years_reg = Registration.find_by_user_id(@user.id, :order => 'updated_at desc')
          if last_years_reg
            @registration = last_years_reg.clone
-           @registration.event_id = @event.id
+           @registration.event_id = @main_event.id
          end
      end
    end

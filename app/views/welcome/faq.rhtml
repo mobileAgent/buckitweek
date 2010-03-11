@@ -22,8 +22,8 @@
        intensive.
      </p>
 
-    <h2>Is this a repeat of Buckit Week 2008?</h2>
-    <p>The format is very similar but almost all of the material is new for 2009.</p>
+    <h2>Is this a repeat of Buckit Week <%= @event_year - 1 %>?</h2>
+    <p>The format is very similar but almost all of the material is new for <%= @event_year %>.</p>
 
     <h2>Does this mean Buckit Week is just for &quot;advanced&quot; students of the Bible?</h2>
     <p>Not at all. There will be men and women at various stages
@@ -36,19 +36,31 @@
     homework will also lend itself to working together.</p>
 
     <h2>When is Buckit Week?</h2>
-    <p><b>July 26-31, 2009.</b> This is a Sunday evening through
-    Friday evening. The reason for the scheduling is to allow people
-    to be part of Buckit Week and still have time to rest from (or
-    rest for) another activity the previous (or next) week.</p>
+    <% if @main_event %>
+      <p><b><%= @main_event.event_date_string %></b> This is a <%= @main_event.start_date.strftime("%A")%>
+      evening through <%=@main_event.end_date.strftime("%A")%> evening. The reason for the scheduling is
+      to allow people to be part of Buckit Week and still have time to
+      rest from (or rest for) another activity the previous (or next)
+      week.</p>
+    <% else %>
+      <p>Nothing is definite yet. Check back later on this one.</p>
+    <% end %>
 
     <h2>Where is Buckit Week?</h2>
-    <p>Buckit Week 2009 will be held in the Country Inn and Suites in
-    Hagerstown, Maryland. This is nice hotel with
-    lots of amenities convenient to the needs of this
-    week. <a href="http://www.countryinns.com/hotels/mdhagers" title="Country Inn and Suites, Hagerstown MD" target="_new">The hotel website</a> is
-    a great source of information about the specific amenities
-    offered, but questions about any Buckit Week arrangements should
-    be made through <%= link_to 'Buckit week contacts', :controller => 'welcome', :action => 'contact' %> rather than direct contact with the hotel.</p>
+    <% if @main_event %>
+      <p>Buckit Week <%= @main_event.year %> will be held in the <%=
+      @main_event.location %>. This is nice hotel with lots of
+      amenities convenient to the needs of this week. <a
+      href="http://www.countryinns.com/hotels/mdhagers" title="Country
+      Inn and Suites, Hagerstown MD" target="_new">The hotel
+      website</a> is a great source of information about the specific
+      amenities offered, but questions about any Buckit Week
+      arrangements should be made through <%= link_to 'Buckit week
+      contacts', :controller => 'welcome', :action => 'contact' %>
+      rather than direct contact with the hotel.</p>
+    <% else %>
+      <p>Nothing is definite yet. Check back later on this one.</p>
+    <% end %>
 
     <h2>What if I am flying in for Buckit Week?</h2>
     <p> The best airports to fly into probably will be in the
@@ -61,7 +73,7 @@
 
     <h2>What is the cost for Buckit Week?</h2>
     <p>The week's activities are being provided for a very low
-    registration fee of $75 per person. This includes meals and
+    registration fee of $<%=@main_event ? @main_event.registration_cost : "(TBD)"%> per person. This includes meals and
     lodging in the hotel at 3 persons per room. The true cost of the
     the week is more than this amount, but we want to encourage those
     whom the Lord may be leading to attend and who will be most likely
@@ -103,7 +115,7 @@
     <h2>Who is involved with Buckit week?</h2>
 
     <p>Special thanks to those who put in a lot of effort in the
-    preparations for Buckit Week 2009: Rockville Bible Fellowship
+    preparations for Buckit Week <%= @event_year %>: Rockville Bible Fellowship
     (MD), Michael Flester, Keith Keyser, Joe-Paul and June Swinski,
     and Craig Shakarji. Craig will be directing the activities during
     the week.</p>

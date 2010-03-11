@@ -24,7 +24,7 @@
         <li>|</li>
 	<li><%= link_to_unless_current 'Contact', :controller => 'welcome', :action => 'contact' %></li>
         <li>|</li>
-	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => 'noregister' %></li>
+	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => (@main_event ? 'register' : 'noregister') %></li>
         <li>|</li>
 	<li><%= link_to_unless_current 'Audio', :controller => 'audio', :action => 'index' %></li>
       </ul>
@@ -39,7 +39,7 @@
    <div id="footer">
       http://www.<span class="primcolor">buckit</span><span class="altcolor">week</span>.org/
       <br />
-      &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, 2007-2009
+      &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, 2007-<%= Time.now.year %>
    </div>
    <script><!--
       insert_random_logo_for_id('logo_img','/images/logo','.jpg',7)

@@ -11,6 +11,11 @@
      <td><%= number_to_currency(reg.amount_owed, :precision => 2) %></td>
      <td sortby='<%=reg.created_at.iso8601 %>'><%= short_date reg.created_at %></td>
      <td>
+     <% if reg.comments && reg.comments.length > 0 %>
+       <div title='<%= h reg.comments %>'>(*)</div>
+     <% end %>
+     </td>
+     <td>
          
         <%= link_to image_tag('delete.gif', :alt => 'Delete', :size => '16x16', :title => 'Delete'), { :action => 'destroy_registration',
                                  :id => reg },

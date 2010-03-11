@@ -1,0 +1,11 @@
+require 'redgreen/autotest'
+require 'rake'
+load File.dirname(__FILE__) + '/Rakefile'
+
+# We need to clear out the database in sync with the
+# Factory sequences, or we will get cruft in the test db
+Autotest.add_hook :run_command do |autotest|
+  puts "Loading a fresh test schema"
+  Rake::Task["db:test:purge"].invoke
+  Rake::Task["db:test:load"].invoke
+end

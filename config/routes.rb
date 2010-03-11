@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :age_ranges
+
+  map.resources :age_ranges
+
   map.resources :events
   map.resources :faqs
 

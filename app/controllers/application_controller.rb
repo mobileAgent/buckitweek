@@ -6,10 +6,17 @@ class ApplicationController < ActionController::Base
   # Email exceptions in production environment
   include ExceptionNotifiable
 
-  # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_buckitweek_session_id'
+  # Get the event we are working on
+  before_filter :get_event
 
+  protected
 
+  def get_event
+    @main_event = Event.last(:conditions => ["end_date >= ?", Time.now],
+                            :order => 'start_date asc')
+    @event_year = @main_event ? @main_event.year : (Time.now.year+1)
+  end
+  
   def authorize
      if !session[:user_id] || !User.find_by_id(session[:user_id])
        session[:original_uri] = request.request_uri

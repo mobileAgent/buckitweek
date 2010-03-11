@@ -1,10 +1,20 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class AgeRangeTest < Test::Unit::TestCase
-  fixtures :age_ranges
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_out_of_order_range_should_be_rejected
+    a = Factory.build(:age_range, :low => 20, :high => 10)
+    assert ! a.valid?
   end
+  
+  def test_nil_range_should_be_rejected
+    a = Factory.build(:age_range, :low => 20, :high => nil)
+    assert ! a.valid?
+  end
+
+  def test_normal_range_is_valid
+    a = Factory.create(:age_range)
+    assert a.valid?
+  end
+  
 end

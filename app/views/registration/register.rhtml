@@ -39,7 +39,7 @@
                 <% if ! @registration.new_record? %>
                    <p><label for="reg_email" class="col1">Balance Due: </label><span id="reg_email" class="altcolor strong"><%= number_to_currency(@registration.amount_owed, :precision => 2)%></span></p>
                 <% else %>
-                    <p><label for="reg_fee" class="col1">Registration fee: </label><span id="reg_fee"><%=h "$#{@event.registration_cost}.00"%></span></p>
+                    <p><label for="reg_fee" class="col1">Registration fee: </label><span id="reg_fee"><%=h "$#{@main_event.registration_cost}.00"%></span></p>
                 <% end %>
               <% end %>
               

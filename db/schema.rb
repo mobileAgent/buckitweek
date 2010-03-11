@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(:version => 7) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "year",                               :null => false
-    t.string   "location",           :default => "", :null => false
-    t.integer  "registration_cost",  :default => 0,  :null => false
-    t.integer  "registration_count", :default => 0,  :null => false
-    t.integer  "max_seats",          :default => 0,  :null => false
-    t.integer  "lock_version",       :default => 0,  :null => false
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "year",                              :null => false
+    t.string   "location",                          :null => false
+    t.integer  "registration_cost",  :default => 0, :null => false
+    t.integer  "registration_count", :default => 0, :null => false
+    t.integer  "max_seats",          :default => 0, :null => false
+    t.integer  "lock_version",       :default => 0, :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.datetime "start_date"
     t.datetime "end_date"
   end
@@ -39,23 +39,23 @@ ActiveRecord::Schema.define(:version => 7) do
   end
 
   create_table "registrations", :force => true do |t|
-    t.string   "address1",                  :default => "", :null => false
+    t.string   "address1",                                 :null => false
     t.string   "address2"
-    t.string   "city",                      :default => "", :null => false
+    t.string   "city",                                     :null => false
     t.string   "state",        :limit => 2
-    t.string   "phone",                     :default => "", :null => false
-    t.string   "first_name",                :default => "", :null => false
-    t.string   "last_name",                 :default => "", :null => false
+    t.string   "phone",                                    :null => false
+    t.string   "first_name",                               :null => false
+    t.string   "last_name",                                :null => false
     t.string   "middle_name"
-    t.integer  "age_range_id",              :default => 0,  :null => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.integer  "lock_version",              :default => 0,  :null => false
+    t.integer  "age_range_id",              :default => 0, :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.integer  "lock_version",              :default => 0, :null => false
     t.integer  "event_id"
-    t.integer  "amount_paid",               :default => 0,  :null => false
-    t.integer  "amount_owed",               :default => 0,  :null => false
-    t.integer  "user_id",                                   :null => false
-    t.string   "gender",       :limit => 1, :default => "", :null => false
+    t.integer  "amount_paid",               :default => 0, :null => false
+    t.integer  "amount_owed",               :default => 0, :null => false
+    t.integer  "user_id",                                  :null => false
+    t.string   "gender",       :limit => 1,                :null => false
     t.string   "zip_code"
     t.string   "shirt"
     t.string   "mobile"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(:version => 7) do
   create_table "users", :force => true do |t|
     t.string   "email",           :limit => 128, :default => "",    :null => false
     t.string   "hashed_password",                :default => "",    :null => false
-    t.string   "salt",                           :default => "",    :null => false
+    t.string   "salt",                                              :null => false
     t.datetime "created_at",                                        :null => false
     t.datetime "last_visit",                                        :null => false
     t.boolean  "admin",                          :default => false, :null => false

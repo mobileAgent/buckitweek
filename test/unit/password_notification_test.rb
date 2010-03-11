@@ -1,7 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class PasswordNotificationTest < Test::Unit::TestCase
-  FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
   include ActionMailer::Quoting
@@ -16,11 +15,12 @@ class PasswordNotificationTest < Test::Unit::TestCase
     @expected.mime_version = '1.0'
   end
 
-  private
-    def read_fixture(action)
-      IO.readlines("#{FIXTURES_PATH}/password_notification/#{action}")
-    end
+  def test_truth
+    assert true
+  end
+  
 
+  private
     def encode(subject)
       quoted_printable(subject, CHARSET)
     end

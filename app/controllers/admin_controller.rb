@@ -12,8 +12,7 @@ class AdminController < ApplicationController
       @title = 'Admin - List Registered'
 #      @registration_pages, @registrations =
 #         paginate :registrations, :per_page => 25
-      @event = Event.find_by_year(Time.now.year)
-      @registrations = Registration.find(:all, :conditions => ["event_id = ?",@event.id], :order => "last_name")
+      @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
     respond_to do |format|
       format.html # list_registration.html.erb
       format.xml  { render :xml => @registrations }
