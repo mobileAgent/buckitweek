@@ -16,7 +16,7 @@
 
         <p>
           <label for="registration_age_range_id" class="col1">Age Range<span class="req">*</span></label>
-          <%= select('registration', 'age_range_id', AgeRange.find(:all).collect {|p| [p.to_s,p.id] }, { :include_blank => true }) %>
+          <%= select('registration', 'age_range_id', AgeRange.ordered.collect {|p| [p.to_s,p.id] }, { :include_blank => true }) %>
         </p>
         <p>
           <label for="registration_gender_m" class="col1">Gender<span class="req">*</span></label>

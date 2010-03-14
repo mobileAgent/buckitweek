@@ -1,3 +1,4 @@
 config/database.yml
 backups
 log
+coverage

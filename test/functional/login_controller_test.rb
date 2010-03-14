@@ -1,18 +1,13 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'login_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class LoginController; def rescue_action(e) raise e end; end
+class LoginControllerTest < ActionController::TestCase
 
-class LoginControllerTest < Test::Unit::TestCase
-  def setup
-    @controller = LoginController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+  test "login with wrong password must fail" do
+    @user = User.make(:email => 'foobar@example.com')
+    post :login, :params => {:email => @user.email, :password => 'xyzzy'}
+    assert_response :success
+    assert_select 'p',/.*does not match.*/
+    assert_nil @response.session[:user_id]
   end
-
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-  end
+  
 end

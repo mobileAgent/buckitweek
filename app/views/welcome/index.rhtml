@@ -6,8 +6,8 @@
   <% if @main_event %>
   <ul>
     <li> Teachers: Craig Shakarji and Jabe Nicholson</li>
-    <li class="location"><%= @main_event.location %></li>
-    <li> Registration Cost: $<%= @main_event.registration_cost %></li>
+    <li class="location"><%=h @main_event.hotel %>, <%=h @main_event.location %></li>
+    <li> Registration Cost: $<%=h @main_event.registration_cost %> for first timers!</li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>
     <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
   </ul>

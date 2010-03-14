@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def get_event
-    @main_event = Event.last(:conditions => ["end_date >= ?", Time.now],
-                            :order => 'start_date asc')
+    @main_event = 
+      Event.last(:conditions => ["end_date >= ?", Time.now],
+                 :order => 'start_date asc')
     @event_year = @main_event ? @main_event.year : (Time.now.year+1)
   end
   

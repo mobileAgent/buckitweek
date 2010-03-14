@@ -4,6 +4,9 @@ class AgeRange < ActiveRecord::Base
   
   validates_presence_of   :low
   validates_presence_of   :high
+
+  named_scope :ordered, :order => "low ASC"
+  
   
   def validate
     if low.nil? || high.nil? || low >= high

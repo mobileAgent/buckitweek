@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class AgeRangesControllerTest < ActionController::TestCase
+  
+  def setup
+    @user = User.make(:admin => true )
+    @request.session[:user_id] = @user.id
+  end
+  
   test "should get index" do
     get :index
     assert_response :success
@@ -14,32 +20,32 @@ class AgeRangesControllerTest < ActionController::TestCase
 
   test "should create age_range" do
     assert_difference('AgeRange.count') do
-      post :create, :age_range => Factory.attributes_for(:age_range)
+      post :create, :age_range => AgeRange.plan
     end
 
     assert_redirected_to age_range_path(assigns(:age_range))
   end
 
   test "should show age_range" do
-    a = Factory.create(:age_range)
+    a = AgeRange.make
     get :show, :id => a.id.to_param
     assert_response :success
   end
 
   test "should get edit" do
-    a = Factory.create(:age_range)
+    a = AgeRange.make
     get :edit, :id => a.id.to_param
     assert_response :success
   end
 
   test "should update age_range" do
-    a = Factory.create(:age_range)
+    a = AgeRange.make
     put :update, :id => a.id.to_param, :age_range => {:low => 12, :high => 22 }
     assert_redirected_to age_range_path(assigns(:age_range))
   end
 
   test "should destroy age_range" do
-    a = Factory.create(:age_range)
+    a = AgeRange.make
     assert_difference('AgeRange.count', -1) do
       delete :destroy, :id => a.id.to_param
     end

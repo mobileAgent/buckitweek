@@ -9,24 +9,17 @@ class AdminController < ApplicationController
    # GET /admin/list_registration
    # GET /admin/list_registration.csv
    def list_registration
-      @title = 'Admin - List Registered'
-#      @registration_pages, @registrations =
-#         paginate :registrations, :per_page => 25
-      @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
-    respond_to do |format|
-      format.html # list_registration.html.erb
-      format.xml  { render :xml => @registrations }
-      format.csv  # list_registration.csv.erb
-    end
-   end
-
-
-   def list_events
-     @title = 'Admin - List Events'
-   end
-
-   def list_age_ranges
-      @title = 'Admin - List Age Ranges'
+     @title = 'Admin - List Registered'
+     if @main_event
+       @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
+     else
+       @registrations = []
+     end
+     respond_to do |format|
+       format.html # list_registration.html.erb
+       format.xml  { render :xml => @registrations }
+       format.csv  # list_registration.csv.erb
+     end
    end
 
    def show_registration

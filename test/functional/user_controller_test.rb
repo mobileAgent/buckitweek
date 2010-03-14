@@ -1,18 +1,21 @@
-require File.dirname(__FILE__) + '/../test_helper'
-require 'user_controller'
+require 'test_helper'
 
-# Re-raise errors caught by the controller.
-class UserController; def rescue_action(e) raise e end; end
-
-class UserControllerTest < Test::Unit::TestCase
+class UserControllerTest < ActionController::TestCase
+  
   def setup
-    @controller = UserController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @user = User.make
+    @request.session[:user_id] = @user.id
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  test "get password change screen" do
+    get :change_password
+    assert_response :success
   end
+
+  test "change of password saved through" do
+    post :update_password, :user => {:password => "newpass", :password_confirmation => "newpass" }
+    assert_redirected_to root_path
+    assert User.authenticate @user.email, "newpass"
+  end
+  
 end
