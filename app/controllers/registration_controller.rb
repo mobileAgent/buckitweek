@@ -7,11 +7,14 @@ class RegistrationController < ApplicationController
          :redirect_to => { :action => :register }
 
    def index
-      @title = 'Registration'
-      render :action => 'noregister'
+     @title = 'Registration'
+     redirect_to :action => 'register'
    end
 
    def register
+     # No event? hard to register for that
+     render :action => 'noregister' and return if @main_event.nil?
+
      @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @main_event.id ]).size
      if @main_event.max_seats > @num_registered
         @title = 'Registration'
@@ -79,7 +82,7 @@ class RegistrationController < ApplicationController
 
    def update
      @user = User.find_by_id(session[:user_id])
-     @registration = Registration.find(:first, :conditions => ["user_id = ?", @user.id])
+     @registration = Registration.find(:first, :conditions => ["user_id = ? and event_id = ?", @user.id,@main_event.id])
      if @registration.update_attributes(params[:registration])
         flash[:notice] = 'Registration Updated'
      else
