@@ -1,0 +1,29 @@
+<%= @registration.first_name%> <%= @registration.middle_name %> <%= @registration.last_name %>
+<%= @registration.address1 %>
+<% if ! @registration.address2.nil? && @registration.address2.length > 0 %>
+ <%= @registration.address2 %>
+<% end %>
+<%= @registration.city %> <%= @registration.state %> <%= @registration.zip_code %>\n"
+
+Phone:  <%= @registration.phone %>
+Travel Phone: <%= @registration.mobile %>
+Shirt size: <%= @registration.shirt %>
+Registration Time: <%= @registration.created_at %>
+Amount due: $<%= @registration.amount_owed %>.00
+You can make your check payable to Buckit Week
+And mail it to
+     
+                   Buckit Week c/o Craig Shakarji
+                   3 Arch Place # 425
+                   Gaithersburg MD 20878
+
+Thank you for registering for BuckitWeek <%= @registration.event.year %>,
+we are looking forward to seeing you on <%= @registration.event.start_text %>!
+Please contact registrar@buckitweek.org if you have any questions!
+
+You can change your registration details at the BuckitWeek
+website using your email address and password to login.
+<%= url_for(:host => "www.buckitweek.org", :controller => "welcome", :action => "index") %>
+      
+
+
