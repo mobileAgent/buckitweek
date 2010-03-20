@@ -63,11 +63,11 @@ class RegistrationController < ApplicationController
        if @registration.save
           if @wait_list
              flash[:notice] = 'You are on the waiting list!'
-             WaitlistNotification.deliver_invoice(@user, @registration)
+             UserMailer.deliver_waitlist(@user, @registration)
              redirect_to :action => 'waiting_list_thanks'
           else
              flash[:notice] = 'Registration created'
-             InvoiceNotification.deliver_invoice(@user, @registration)
+             UserMailer.deliver_invoice(@user, @registration)
              redirect_to :action => 'invoice'
           end
        else

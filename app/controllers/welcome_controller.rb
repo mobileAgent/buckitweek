@@ -22,11 +22,4 @@ class WelcomeController < ApplicationController
     @title = 'Contact Us'
   end
 
-  def register
-    @title = 'Registration'
-  end
-
-  def message
-    @title = 'Message'
-  end
 end

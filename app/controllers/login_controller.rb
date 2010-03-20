@@ -47,7 +47,7 @@ class LoginController < ApplicationController
            new_password = generate_password()
            user.password=new_password
            user.save
-           PasswordNotification.deliver_password(user, new_password)
+           UserMailer.deliver_password(user, new_password)
            flash[:notice] = "New password has been mailed to #{params[:email]}."
         else
            flash[:notice] = "The information you provided does not match our records"
