@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100314000910) do
+ActiveRecord::Schema.define(:version => 20100330031952) do
 
   create_table "age_ranges", :force => true do |t|
     t.integer "low",  :null => false
@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(:version => 20100314000910) do
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "hotel"
+    t.string   "speaker_one"
+    t.string   "speaker_two"
+    t.string   "topics"
   end
 
   create_table "faqs", :force => true do |t|

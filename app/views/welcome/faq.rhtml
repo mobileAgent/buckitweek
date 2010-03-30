@@ -3,16 +3,17 @@
      <h2>What is Buckit Week?</h2>
      
      <p>In a nutshell, Buckit Week is a time of intensive, systematic
-     teaching of the Word of God in areas of key Bible
-     concepts. Additionally
+     teaching of the Word of God in areas of key Bible concepts.</p>
+     <% if @main_event && @main_event.topic_list.size > 0 -%>
+     Additionally
        <ol>
-          <li>Unfolding the Book of Acts, chapters 1-14</li>
-          <li>Selected topics in church truth</li>
-          <li>Exercises in delivery and evangelism</li>
-          <li>Overarching themes of the Bible</li>
+          <% @main_event.topic_list.each do |topic| -%>
+            <li><%=h topic %></li>
+          <% end -%>
        </ol>
+      <% end -%>
 
-       That's a lot of material to cover in 5 days time, so don't plan
+      <p>That's a lot of material to cover in 5 days time, so don't plan
        on eating or sleeping. Ok maybe a little, but it is going to be
        intensive.
      </p>

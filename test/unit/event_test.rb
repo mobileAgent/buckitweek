@@ -37,6 +37,11 @@ class EventTest < Test::Unit::TestCase
     assert_equal a.event_date_string "January 30-Febuary 5, 2010"
   end
 
+  def topics_separated_into_array
+    a = Event.make(:topics => "one; two; three; four; five")
+    assert_equal 5, a.topic_list.size
+  end
+
   def event_cost_scaling
     a = Event.make(:registration_cost => 100)
     assert_equal a.registration_cost_scale(0), 100

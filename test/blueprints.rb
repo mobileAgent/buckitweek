@@ -16,6 +16,9 @@ Event.blueprint do
   year Date.today.year
   location "Someville, ST"
   hotel "Fawlty Towers"
+  speaker_one "Fred Flintstone"
+  speaker_two "Barney Rubble"
+  topics "Church Truth; Lost Cities; Eternal Life; More Stuff"
   registration_cost 100
   registration_count 0
   max_seats 65

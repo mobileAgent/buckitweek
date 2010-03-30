@@ -4,7 +4,7 @@
   </p>
 
   <p>
-    <b>Hotel</b><br />
+    <b>Hotel (use [TBD] to indicate it isn't firmed up yet)</b><br />
     <%= f.text_field :hotel %>
   </p>
   
@@ -38,3 +38,17 @@
     <%= f.datetime_select :end_date %>
   </p>
 
+  <p>
+    <b>First Speaker</b><br />
+    <%= f.text_field :speaker_one %>
+  </p>
+
+  <p>
+    <b>Second Speaker</b><br />
+    <%= f.text_field :speaker_two %>
+  </p>
+
+  <p>
+    <b>Topics (as many as you want, separated by semi-colon)</b><br />
+    <%= f.text_field :topics %>
+  </p>

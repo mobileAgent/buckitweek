@@ -18,6 +18,7 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_not_nil assigns(:event_year)
     assert_select 'li', /.*Registration Cost: \$77/
     assert_select 'li', /.*Dew Drop Inn.*/
+    assert_select 'li', /.*Fred Flintstone.*/
   end
 
   test "bios" do

@@ -53,5 +53,9 @@ class Event < ActiveRecord::Base
       ((registration_cost * 2) / 10).ceil * 10
     end
   end
+
+  def topic_list
+    topics.split /;/
+  end
   
 end
