@@ -48,9 +48,9 @@ class Event < ActiveRecord::Base
     if num_times_attended.nil? || num_times_attended <= 0
       registration_cost
     elsif num_times_attended == 1
-      (registration_cost * 1.5).floor
+      ((registration_cost * 1.5) / 10).ceil * 10
     else
-      (registration_cost * 2).floor
+      ((registration_cost * 2) / 10).ceil * 10
     end
   end
   
