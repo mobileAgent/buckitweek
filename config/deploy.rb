@@ -41,22 +41,12 @@ role :db,  "#{server_name}", :primary => true
 # =============================================================================
 set :deploy_to, "/var/apps/#{application}"
 set :user, "buckitweek"         # defaults to the currently logged in user
-set :group, "apache"
+set :group, "buckitweek"
 
 set :db_username, "bwpro"
 
 # How much to keep on a cleanup task
 set :keep_releases, 3
-
-# Web server
-set :web_server, "apache2"
-set :path_to_web_server, "/etc/httpd"
-set :web_server_port, 80
-
-# The Plesk friendly way...
-#set :user_http_conf, "/home/httpd/vhosts/#{server_name}/conf"
-set :user_http_conf, "#{path_to_web_server}/conf/rails"
-
 
 # SSH OPTIONS
 # =============================================================================
@@ -72,16 +62,17 @@ set :user_http_conf, "#{path_to_web_server}/conf/rails"
 # must match the options given for the servers to select (like :primary => true)
 
 
-desc "Restarting mod_rails with restart.txt"
-task :restart, :roles => :app, :except => { :no_release => true } do
-  run "touch #{current_path}/tmp/restart.txt"
+namespace :deploy do
+  desc "Restarting mod_rails with restart.txt"
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
+  end
 end
 
 desc "Tasks before initial setup"
 task :before_setup do
   sudo "mkdir -p /var/apps"
   sudo "chown -R #{user}:#{group} /var/apps/"
-  sudo "mkdir -p #{path_to_web_server}/conf/rails"
   sudo "mkdir -p /var/log/#{application}"
 end
 
