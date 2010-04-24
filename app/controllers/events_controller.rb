@@ -49,6 +49,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        expire_page :controller => :welcome, :action => :index
+        expire_page :controller => :welcome, :action => :faq
         flash[:notice] = 'Event was successfully created.'
         format.html { redirect_to(@event) }
         format.xml  { render :xml => @event, :status => :created, :location => @event }
@@ -66,6 +68,8 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
+        expire_page :controller => :welcome, :action => :index
+        expire_page :controller => :welcome, :action => :faq
         flash[:notice] = 'Event was successfully updated.'
         format.html { redirect_to(@event) }
         format.xml  { head :ok }
@@ -81,6 +85,8 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
+    expire_page :controller => :welcome, :action => :index
+    expire_page :controller => :welcome, :action => :faq
 
     respond_to do |format|
       format.html { redirect_to(events_url) }
