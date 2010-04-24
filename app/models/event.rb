@@ -57,5 +57,9 @@ class Event < ActiveRecord::Base
   def topic_list
     topics.split /;/
   end
+
+  def speakers
+    [speaker_one, speaker_two, speaker_three].compact
+  end
   
 end

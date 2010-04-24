@@ -5,7 +5,8 @@
   <span class="summary">BUCKIT<span class="altcolor">WEEK</span><%= @event_year %></span>
   <% if @main_event %>
   <ul>
-    <li> Teachers: <%= @main_event.speaker_one %> and <%= @main_event.speaker_two %></li>
+    <li> Teachers: <%= @main_event.speakers.to_sentence %>
+    </li>
     <li class="location"><%=h @main_event.hotel %>, <%=h @main_event.location %></li>
     <li> Registration Cost: $<%=h @main_event.registration_cost %> for first timers!</li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>

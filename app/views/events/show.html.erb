@@ -4,8 +4,13 @@
 </p>
 
 <p>
+  <b>Speakers:</b>
+  <%=h @event.speakers.to_sentence %>
+</p>
+  
+<p>
   <b>Hotel:</b>
-  <%=h @event.hotel %>
+  <%=h @event.hotel %> (<%= @event.hotel_confirmed? ? " CONFIRMED " : " tentative " %>)
 </p>
 
 <p>
@@ -14,8 +19,19 @@
 </p>
 
 <p>
+  <b>Topic:</b>
+  <ul>
+  <% @event.topic_list.each do |t| %>
+    <li><%=h t%></li>
+  <% end %>
+  </ul>
+</p>  
+
+<p>
   <b>Registration cost:</b>
   <%=h @event.registration_cost %>
+  (<%=h @event.registration_cost_scale(1) %> second time, 
+   <%=h @event.registration_cost_scale(2) %> third time)
 </p>
 
 <p>
@@ -36,6 +52,11 @@
 <p>
   <b>End date:</b>
   <%=h @event.end_date %>
+</p>
+
+<p> 
+  <b>Date Display String:</b>
+  <%= h @event.event_date_string %>
 </p>
 
 
