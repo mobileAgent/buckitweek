@@ -8,6 +8,7 @@ config.cache_classes = true
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
+config.logger = Logger.new(config.log_path, 2, 20.megabytes)
 
 # Show full error reports and disable caching
 config.action_controller.consider_all_requests_local = true

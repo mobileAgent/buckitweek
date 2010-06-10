@@ -7,6 +7,7 @@ config.cache_classes = false
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
+config.logger = Logger.new(config.log_path, 2, 20.megabytes)
 
 # Enable the breakpoint server that script/breakpointer connects to
 #config.breakpoint_server = true
