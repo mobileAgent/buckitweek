@@ -45,13 +45,7 @@ class Event < ActiveRecord::Base
   # Scale the registration cost by how many
   # times the user has attended before
   def registration_cost_scale(num_times_attended)
-    if num_times_attended.nil? || num_times_attended <= 0
-      registration_cost
-    elsif num_times_attended == 1
-      ((registration_cost * 1.5) / 10).ceil * 10
-    else
-      ((registration_cost * 2) / 10).ceil * 10
-    end
+    registration_cost
   end
 
   def topic_list
