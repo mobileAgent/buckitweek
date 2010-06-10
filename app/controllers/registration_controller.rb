@@ -59,7 +59,7 @@ class RegistrationController < ApplicationController
        end
        @registration.user_id = @user.id
        @registration.event_id = @main_event.id
-       @registration.amount_owed = @main_event.registration_cost
+       @registration.amount_owed = @main_event.registration_cost_scale(@user_scale_factor)
        if @registration.save
           if @wait_list
              flash[:notice] = 'You are on the waiting list!'
@@ -103,6 +103,7 @@ class RegistrationController < ApplicationController
 
    def setup
      @user = User.find_by_id(session[:user_id])
+     @user_scale_factor = @user ? Registration.count(:conditions => ["user_id = ?",@user.id]) : 0
      @registration = @registration ||
          (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @main_event.id ])) ||
          Registration.new(params[:registration])
