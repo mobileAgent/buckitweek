@@ -23,7 +23,17 @@ Shirt Size: <%=h "#{@registration.shirt}"%><br />
 <h2>Payment Due</h2>
 <p>
 Amount due: <%=h number_to_currency(@registration.amount_owed, :precision => 2)%>
-<br />
+</p>
+
+<p>Your spot is not reserved until the registration
+fee is received.</p>
+
+<p>This amount is refundable up until 1 month before
+the event. Between one month before up until 10 days 
+before, 50% is refundable. Within 10 days of the
+event start, the registration fee is non-refundable.</p>
+
+<p>
 You can make your check out to <strong>Buckit Week</strong>
 and mail it to
       <blockquote>
