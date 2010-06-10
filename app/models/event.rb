@@ -59,7 +59,9 @@ class Event < ActiveRecord::Base
   end
 
   def speakers
-    [speaker_one, speaker_two, speaker_three].compact
+    s = [speaker_one, speaker_two]
+    s << speaker_three unless (speaker_three.nil? || speaker_three.blank?)
+    s
   end
   
 end
