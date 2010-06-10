@@ -359,6 +359,9 @@ th>a.sortheader:hover {
    display: none;
 }
 
+h3.blast {
+  color: red;
+}
 
 /* This is not valid CSS */
 fieldset, div.scripturebox {
