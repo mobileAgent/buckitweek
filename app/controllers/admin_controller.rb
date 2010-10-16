@@ -17,8 +17,8 @@ class AdminController < ApplicationController
      end
      respond_to do |format|
        format.html # list_registration.html.erb
-       format.xml  { render :xml => @registrations }
-       format.csv  # list_registration.csv.erb
+       format.xml  { render :xml => @registrations, :layout => false }
+       format.csv  { render :csv => @registrations, :layout => false }
      end
    end
 
