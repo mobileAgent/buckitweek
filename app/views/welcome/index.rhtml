@@ -10,6 +10,7 @@
     <li class="location"><%=h @main_event.hotel %>, <%=h @main_event.location %></li>
     <li> Registration Cost: $<%=h @main_event.registration_cost %></li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>
+    <li> Topics listed on the <%= link_to 'FAQ page', '/welcome/faq' %></li>
     <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
   </ul>
   <% else %>
