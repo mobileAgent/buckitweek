@@ -11,7 +11,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   test "should get index with event loaded" do
-    e = Event.make(:registration_cost => 77, :start_date => Date.today+365, :end_date => Date.today+371, :hotel => "Dew Drop Inn")
+    e = FactoryGirl.create(:event, :registration_cost => 77, :start_date => Date.today+365, :end_date => Date.today+371, :hotel => "Dew Drop Inn")
     get :index
     assert_response :success
     assert_not_nil assigns(:main_event)

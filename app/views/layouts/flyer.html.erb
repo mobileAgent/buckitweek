@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BUCKIT Week <%= " - #{@title}" if @title %></title>
+    <meta charset="utf-8"/>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
+    <style>
+       div.centered div.scripturebox {
+          width: 70%;
+          margin-left: 15%;
+        }
+    </style>
+  </head>
+  <body>
+
+   <div id="header">
+      <span style="font-size: 90px;" class="logotxt primcolor"><span class="k8">BU</span>CKIT</span>
+      <%= image_tag 'bible_man.jpg', :alt => 'Buckit Week', :size => '130x90', :title => 'Buckit Week' %>
+      <span class="logotxt altcolor">WEEK</span>
+  </div>
+
+   <div class="centered" style="color: black; font-size: +3em;">http://www.<span class="primcolor">buckit</span><span class="altcolor">week</span>.org</div>
+    <br />
+    <div class="centered" style="color: black; font-size: +2em;">Questions? Email registrar@buckitweek.org</div>
+
+   <div id="content">
+     <%= yield %>
+   </div>
+
+   <div id="footer">
+      http://www.<span class="primcolor">buckit</span><span class="altcolor">week</span>.org/
+      <br />
+      &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, 2007-2009
+   </div>
+ </body>
+</html>

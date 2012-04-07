@@ -44,7 +44,6 @@ class AgeRangesController < ApplicationController
   # POST /age_ranges.xml
   def create
     @age_range = AgeRange.new(params[:age_range])
-
     respond_to do |format|
       if @age_range.save
         flash[:notice] = 'AgeRange was successfully created.'

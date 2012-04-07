@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class RegistrationTest < Test::Unit::TestCase
 
   def test_normal_reg_is_valid
-    a = Registration.make
+    a = FactoryGirl.build(:registration)
     assert a.valid?
     a.user.destroy
     a.event.destroy

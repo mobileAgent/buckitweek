@@ -1,6 +1,5 @@
 class LoginController < ApplicationController
 
-  filter_parameter_logging :password, :password_confirmation
   before_filter :authorize, :except => [:login, :forgotten_password, :reset_password]
 
   def index
@@ -28,6 +27,8 @@ class LoginController < ApplicationController
        else
           flash[:notice] = "The information you provided does not match our records"
        end
+    else
+     session[:original_uri] = nil
     end
   end
 
@@ -47,7 +48,7 @@ class LoginController < ApplicationController
            new_password = generate_password()
            user.password=new_password
            user.save
-           UserMailer.deliver_password(user, new_password)
+           UserMailer.password(user, new_password).deliver
            flash[:notice] = "New password has been mailed to #{params[:email]}."
         else
            flash[:notice] = "The information you provided does not match our records"

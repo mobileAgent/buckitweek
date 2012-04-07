@@ -1,15 +1,17 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of Active Record to incrementally modify your database, and
-# then regenerate this schema definition.
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your database schema. If you need
-# to create the application database on another system, you should be using db:schema:load, not running
-# all the migrations from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405015818) do
+ActiveRecord::Schema.define(:version => 20120406162922) do
 
   create_table "age_ranges", :force => true do |t|
     t.integer "low",  :null => false
@@ -17,21 +19,22 @@ ActiveRecord::Schema.define(:version => 20100405015818) do
   end
 
   create_table "events", :force => true do |t|
-    t.integer  "year",                              :null => false
-    t.string   "location",                          :null => false
-    t.integer  "registration_cost",  :default => 0, :null => false
-    t.integer  "registration_count", :default => 0, :null => false
-    t.integer  "max_seats",          :default => 0, :null => false
-    t.integer  "lock_version",       :default => 0, :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "year",                                                  :null => false
+    t.string   "location",                                              :null => false
+    t.integer  "registration_cost",                  :default => 0,     :null => false
+    t.integer  "registration_count",                 :default => 0,     :null => false
+    t.integer  "max_seats",                          :default => 0,     :null => false
+    t.integer  "lock_version",                       :default => 0,     :null => false
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.datetime "start_date"
     t.datetime "end_date"
     t.string   "hotel"
     t.string   "speaker_one"
     t.string   "speaker_two"
-    t.string   "topics"
+    t.string   "topics",             :limit => 1024
     t.string   "speaker_three"
+    t.boolean  "registration_open",                  :default => false
   end
 
   create_table "faqs", :force => true do |t|
@@ -60,10 +63,12 @@ ActiveRecord::Schema.define(:version => 20100405015818) do
     t.integer  "amount_paid",               :default => 0, :null => false
     t.integer  "amount_owed",               :default => 0, :null => false
     t.integer  "user_id",                                  :null => false
-    t.string   "gender",       :limit => 1,                :null => false
     t.string   "zip_code"
-    t.string   "shirt"
     t.string   "mobile"
+    t.string   "country"
+    t.string   "comments"
+    t.string   "shirt"
+    t.string   "gender",       :limit => 1
   end
 
   create_table "users", :force => true do |t|

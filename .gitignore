@@ -2,3 +2,4 @@ config/database.yml
 backups
 log
 coverage
+tmp/cache/assets

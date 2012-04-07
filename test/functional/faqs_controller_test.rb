@@ -8,8 +8,8 @@ class FaqsControllerTest < ActionController::TestCase
   end
 
   test "get show of a faq item" do
-    @f = Faq.make
-    get :show, :id => @f.id.to_param
+    @f = FactoryGirl.create(:faq)
+    get :show, :id => @f.id
     assert_response :success
   end
   

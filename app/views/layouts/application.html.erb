@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BUCKIT Week <%= @event_year %><%= " - #{@title}" if @title %></title>
+    <meta charset="utf-8"/>
+    <%= csrf_meta_tag %>
+    <%= stylesheet_link_tag 'application', :media => 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+
+   <div id="header">
+      <span class="logotxt primcolor"><span class="k8">BU</span>CKIT</span>
+      <%= image_tag 'bible_man.jpg', :alt => 'Buckit Week', :size => '130x90', :title => 'Buckit Week', :id => 'logo_img' %>
+      <span class="logotxt altcolor">WEEK</span>
+
+      <ul id="topnav">
+        <li><%= link_to_unless_current 'Home', :controller => 'welcome', :action => 'index' %></li>
+        <li>|</li>
+        <li><%= link_to_unless_current 'Bios', :controller => 'welcome', :action => 'bios' %></li>
+        <li>|</li>
+        <li><%= link_to_unless_current 'Faq', :controller => 'welcome', :action => 'faq' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Contact', :controller => 'welcome', :action => 'contact' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Register', :controller => 'registration', :action => 'register' %></li>
+        <li>|</li>
+	<li><%= link_to_unless_current 'Audio', :controller => 'audio', :action => 'index' %></li>
+      </ul>
+   </div>
+
+   <p style="color: green"><%= flash[:notice] %></p>
+
+   <div id="content">
+     <%= yield %>
+   </div>
+
+   <div id="footer">
+      http://www.<span class="primcolor">buckit</span><span class="altcolor">week</span>.org/
+      <br />
+      &copy; <span class="primcolor">Buckit</span><span class="altcolor">Week</span>.org, 2007-<%= Time.now.year %>
+   </div>
+   <script><!--
+      insert_random_logo_for_id('logo_img','/assets/logo','.jpg',7)
+   --></script>
+ </body>
+</html>

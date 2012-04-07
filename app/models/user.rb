@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
                           :with => /\A[-A-Za-z0-9_\.]+@[-A-Za-z_0-9\.]+\.[A-Za-z]{2,6}\Z/,
                           :message => "is missing or invalid"
 
-  validates_uniqueness_of :email,
-                          :on => :create,
-                          :message => "is already being used"
+#  validates_uniqueness_of :email,
+#                          :on => :create,
+#                          :message => "is already being used"
 
   attr_accessor :password_confirmation
 
@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
 
   validates_confirmation_of :password
 
-  def validate
-    errors.add_to_base("Missing password") if password.blank?
+  validate :password_check
+
+  def password_check
+    errors[:base] << "Missing password" if password.blank?
   end
 
   def self.authenticate(email,password)

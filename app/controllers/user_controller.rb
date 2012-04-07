@@ -1,6 +1,5 @@
 class UserController < ApplicationController
 
-  filter_parameter_logging :password, :password_confirmation
   before_filter :authorize, :only => [:change_password, :update_password]
 
    def add_user

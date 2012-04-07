@@ -10,10 +10,10 @@ class RegistrationControllerTest < ActionController::TestCase
   
   test "when event is full waiting list page is shown" do
     Event.all.each { |e| e.destroy }
-    @this_year = Event.make(:start_date => Time.now+3,
+    @this_year = FactoryGirl.create(:event, :start_date => Time.now+3,
                             :end_date => Time.now+10,
                             :max_seats => 3)
-    3.times { |r| Registration.make(:event => @this_year) } # fill it up
+    3.times { |r| FactoryGirl.create(:registration, :event => @this_year) } # fill it up
     get :register
     assert_equal assigns(:main_event).id,@this_year.id
     assert_equal assigns(:num_registered),3
@@ -21,10 +21,10 @@ class RegistrationControllerTest < ActionController::TestCase
   end
 
   test "last years reg info is pulled into current attempt" do
-    @myuser = User.make
-    @last_year = Event.make(:start_date => Time.now-370, :end_date => Time.now-365)
-    @this_year = Event.make(:start_date => Time.now+3, :end_date => Time.now+10)
-    @old_reg = Registration.make(:user => @myuser, :event => @last_year,
+    @myuser = FactoryGirl.create(:user)
+    @last_year = FactoryGirl.create(:event, :start_date => Time.now-370, :end_date => Time.now-365)
+    @this_year = FactoryGirl.create(:event, :start_date => Time.now+3, :end_date => Time.now+10)
+    @old_reg = FactoryGirl.create(:registration, :user => @myuser, :event => @last_year,
                                  :first_name => "Captain", :last_name => "Kirk")
 
     # Now they login for this years registration
@@ -43,17 +43,17 @@ class RegistrationControllerTest < ActionController::TestCase
 
   test "registration created on post without a user login" do
     Event.all.each { |e| e.destroy }
-    @event = Event.make
-    post :create, :registration => Registration.plan(:event => @event),
-                  :user => User.plan
+    @event = FactoryGirl.create(:event)
+    post :create, :registration => FactoryGirl.attributes_for(:registration,:event => @event),
+                  :user => FactoryGirl.attributes_for(:user)
     assert_redirected_to '/registration/invoice'
   end
 
   test "registration update by user" do
     Event.all.each { |e| e.destroy }
-    @user = User.make
-    @event = Event.make
-    @registration = Registration.make(:event => @event, :user => @user)
+    @user = FactoryGirl.create(:user)
+    @event = FactoryGirl.create(:event)
+    @registration = FactoryGirl.create(:registration,:event => @event, :user => @user)
     @request.session[:user_id] = @user.id
     post :update, :id => @registration.id, :registration => { :first_name => 'William' }
     assert_redirected_to '/registration/register'
@@ -62,9 +62,9 @@ class RegistrationControllerTest < ActionController::TestCase
 
   test "registration deleted by user" do
     Event.all.each { |e| e.destroy }
-    @user = User.make
-    @event = Event.make
-    @registration = Registration.make(:event => @event, :user => @user)
+    @user = FactoryGirl.create(:user)
+    @event = FactoryGirl.create(:event)
+    @registration = FactoryGirl.create(:registration, :event => @event, :user => @user)
     @request.session[:user_id] = @user.id
     @count = Registration.count
     post :delete

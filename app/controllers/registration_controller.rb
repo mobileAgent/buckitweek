@@ -3,9 +3,6 @@ class RegistrationController < ApplicationController
   before_filter :authorize, :except => [:register, :index, :create, :noregister, :register_wait_list, :registration_full]
   before_filter :setup, :only => [:index, :register, :invoice, :create, :delete, :register_wait_list ]
 
-  verify :method => :post, :only => [ :delete, :destroy, :create, :update ],
-         :redirect_to => { :action => :register }
-
    def index
      @title = 'Registration'
      redirect_to :action => 'register'
@@ -13,7 +10,7 @@ class RegistrationController < ApplicationController
 
    def register
      # No event? hard to register for that
-     render :action => 'noregister' and return if @main_event.nil?
+     render :action => 'noregister' and return if (@main_event.nil? || !@main_event.registration_open)
 
      @num_registered = Registration.find(:all, :conditions => ["event_id = ?", @main_event.id ]).size
      if @main_event.max_seats > @num_registered
@@ -63,11 +60,11 @@ class RegistrationController < ApplicationController
        if @registration.save
           if @wait_list
              flash[:notice] = 'You are on the waiting list!'
-             UserMailer.deliver_waitlist(@user, @registration)
+             UserMailer.waitlist(@user, @registration).deliver
              redirect_to :action => 'waiting_list_thanks'
           else
              flash[:notice] = 'Registration created'
-             UserMailer.deliver_invoice(@user, @registration)
+             UserMailer.invoice(@user, @registration).deliver
              redirect_to :action => 'invoice'
           end
        else
@@ -99,21 +96,26 @@ class RegistrationController < ApplicationController
      end
    end
 
-   private
+   protected
 
    def setup
      @user = User.find_by_id(session[:user_id])
      @user_scale_factor = @user ? Registration.count(:conditions => ["user_id = ?",@user.id]) : 0
      @registration = @registration ||
-         (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @main_event.id ])) ||
-         Registration.new(params[:registration])
-     if @user && @registration.new_record? && (@registration.last_name.nil? || @registration.last_name == '')
-        last_years_reg = Registration.find_by_user_id(@user.id, :order => 'updated_at desc')
-         if last_years_reg
-           @registration = last_years_reg.clone
-           @registration.event_id = @main_event.id
-         end
+       (@user && Registration.find(:first, :conditions => ["user_id = ? and event_id = ?",  @user.id, @main_event.id ])) ||
+       Registration.new(params[:registration])
+
+     logger.debug "Doing setup on registration #{@registration.inspect}"
+     
+     if @user && @registration.new_record? && @registration.last_name.blank?
+       last_years_reg = Registration.find_by_user_id(@user.id, :order => 'updated_at desc')
+       if last_years_reg 
+         @registration = Registration.new(last_years_reg.attributes)
+         @registration.event_id = @main_event.id
+         @registration.amount_owed = @main_event.registration_cost
+         @registration.amount_paid = 0
+       end
      end
    end
-
+   
 end

@@ -3,9 +3,9 @@
 
 class ApplicationController < ActionController::Base
 
-  # Email exceptions in production environment
-  include ExceptionNotifiable
-
+  protect_from_forgery
+  helper :all # include all helpers, all the time
+  
   # Get the event we are working on
   before_filter :get_event
 
@@ -19,32 +19,32 @@ class ApplicationController < ActionController::Base
   end
   
   def authorize
-     if !session[:user_id] || !User.find_by_id(session[:user_id])
-       session[:original_uri] = request.request_uri
-       flash[:notice] = "Please log in"
-       redirect_to(:controller => "login", :action => "login")
-     end
+    if !session[:user_id] || !User.find_by_id(session[:user_id])
+      session[:original_uri] = request.url
+      flash[:notice] = "Please log in for access"
+      redirect_to(:controller => "login", :action => "login")
+    end
   end
 
   def authorize_admin
-     session[:original_uri] = request.request_uri
-     if session[:user_id]
-        user = User.find_by_id(session[:user_id])
-        unless user && user.admin?
-           redirect_to(:controller => "login", :action => "login")
-        end
-     else
+    session[:original_uri] = request.url
+    if session[:user_id]
+      user = User.find_by_id(session[:user_id])
+      unless user && user.admin?
         redirect_to(:controller => "login", :action => "login")
-     end
+      end
+    else
+      redirect_to(:controller => "login", :action => "login")
+    end
   end
 
   def admin?
-     if session[:user_id]
-        user = User.find_by_id(session[:user_id])
-        return user && user.admin?
-     end
-     return false
+    if session[:user_id]
+      user = User.find_by_id(session[:user_id])
+      return user && user.admin?
+    end
+    return false
   end
-        
+  
 
 end

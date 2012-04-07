@@ -1,5 +1,7 @@
 class Event < ActiveRecord::Base
   has_many :registrations
+
+  attr_accessible :location, :start_date, :end_date,:speaker_one,:speaker_two,:speaker_three,:registration_count,:registration_cost,:max_seats,:topics,:hotel,:year,:registration_open
   
   # microformat support
   def start_cal

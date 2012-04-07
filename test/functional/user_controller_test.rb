@@ -3,8 +3,8 @@ require 'test_helper'
 class UserControllerTest < ActionController::TestCase
   
   def setup
-    @user = User.make
-    @request.session[:user_id] = @user.id
+    @user = FactoryGirl.create(:user)
+    session[:user_id] = @user.id
   end
 
   test "get password change screen" do
@@ -25,10 +25,9 @@ class UserControllerTest < ActionController::TestCase
   end
 
   test "user account created on page post" do
-    @previous_count = User.count
-    post :add_user, :user => User.plan
-    assert_response :redirect
-    assert_equal User.count, @previous_count+1
+    assert_difference('User.count') do
+      post :add_user, :user => FactoryGirl.attributes_for(:user)
+    end
   end
   
 end

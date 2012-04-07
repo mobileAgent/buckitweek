@@ -5,12 +5,15 @@ class AgeRange < ActiveRecord::Base
   validates_presence_of   :low
   validates_presence_of   :high
 
-  named_scope :ordered, :order => "low ASC"
+  attr_accessible :low, :high
+
+  scope :ordered, :order => "low ASC"
+
+  validate  :range_order
   
-  
-  def validate
+  def range_order
     if low.nil? || high.nil? || low >= high
-      errors.add_to_base("Range out of order")
+      errors[:base] << "Range out of order"
     end
   end
 

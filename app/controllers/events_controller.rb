@@ -46,7 +46,6 @@ class EventsController < ApplicationController
   # POST /events.xml
   def create
     @event = Event.new(params[:event])
-
     respond_to do |format|
       if @event.save
         expire_page :controller => :welcome, :action => :index

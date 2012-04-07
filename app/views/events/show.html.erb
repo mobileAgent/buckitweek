@@ -59,6 +59,11 @@
   <%= h @event.event_date_string %>
 </p>
 
+<p>
+  <b>Registration Open:</b>
+  <%= @event.registration_open %>
+</p>  
+
 
 <%= link_to 'Edit', edit_event_path(@event) %> | 
 <%= link_to 'Back', events_path %>
