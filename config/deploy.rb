@@ -3,6 +3,7 @@
 # (among other things) the deployment of your application.
 
 require 'yaml'
+require 'bundler/capistrano'
 
 # =============================================================================
 # REQUIRED VARIABLES
@@ -76,8 +77,10 @@ task :before_setup do
   sudo "mkdir -p /var/log/#{application}"
 end
 
+after 'deploy:update_code', :setup_config
+
 desc "After updating the code populate a new database.yml"
-task :after_update_code, :roles => :app do
+task :setup_config, :roles => :app do
   buffer = YAML::load_file('config/database.yml');
   # purge unneeded configurations
   buffer.delete('test');
@@ -91,8 +94,10 @@ task :after_update_code, :roles => :app do
   run "ln -nfs #{deploy_to}/shared/audio #{current_release}/public/audio"
 end
 
+after 'init:setup', :setup_links
+
 desc "Tasks to execute after initial setup"
-task :after_setup do
+task :setup_links do
   # Make shared config dir to hold config files
   run "mkdir -p #{deploy_to}/shared/config"
   # Make shared tmp for sessions
@@ -121,3 +126,15 @@ desc "Backup the database before running migrations"
 task :before_migrate do 
   backup
 end
+
+#after 'deploy:update_code', :precompile_assets
+
+desc "precompile the assets"
+task :precompile_assets, :roles => :web, :except => { :no_release => true } do
+  run "cd #{current_path}; RAILS_ENV=production bundle exec rake assets:clean assets:precompile"
+  #run_locally("rake assets:clean && rake precompile")
+  #upload("public/assets", "#{release_path}/public/assets", :via =>
+  #       :scp, :recursive => true)
+end
+
+

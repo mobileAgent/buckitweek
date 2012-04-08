@@ -3,8 +3,8 @@
 <ul>
 <% @files.each do |file| %>
   <% next if file.index /secret/ %>
-  <% title = file.gsub(/.mp3/,'').gsub(/#{RAILS_ROOT}\/public\/audio\//,'').gsub(/_/," ").gsub(/-/,' - ') %>
-  <% href = file.gsub(/#{RAILS_ROOT}\/public/,'').gsub(/ +/,"%20") %>
+  <% title = file.gsub(/.mp3/,'').gsub(/#{Rails.root}\/public\/audio\//,'').gsub(/_/," ").gsub(/-/,' - ') %>
+  <% href = file.gsub(/#{Rails.root}\/public/,'').gsub(/ +/,"%20") %>
   <li>
     <a href="<%=href%>" title="<%=title%>"><%=title%></a>
   </li>
