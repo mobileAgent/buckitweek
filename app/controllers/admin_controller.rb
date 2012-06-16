@@ -32,9 +32,13 @@ class AdminController < ApplicationController
 
    def update_registration
      @registration = Registration.find(params[:id])
-     if @registration && @registration.update_attributes(params[:registration])
-        flash[:notice] = "#{@registration.first_name} #{@registration.last_name} registration updated"
-        redirect_to :action => 'list_registration' and return
+     if @registration
+       @registration.update_attributes(params[:registration])
+       @registration.amount_paid = params[:registration][:amount_paid]
+       @registration.amount_owed = params[:registration][:amount_owed]
+       @registration.save!
+       flash[:notice] = "#{@registration.first_name} #{@registration.last_name} registration updated"
+       redirect_to :action => 'list_registration' and return
      else
        flash[:notice] = 'Update failed'
        render :action => 'edit_registration'

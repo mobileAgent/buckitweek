@@ -20,7 +20,7 @@
      <% if @user && ! @user.new_record? %>
         <ul class="nav">
            <% if ! @registration.new_record? %>
-              <li><%= link_to 'Delete my registration', {:controller => 'registration', :action => 'delete'}, :confirm => 'Are you sure?', :method => 'POST' %></li>
+              <li><%= link_to 'Delete my registration', {:controller => 'registration', :action => 'delete'}, :data => {:confirm => 'Are you sure?'}, :method => 'POST' %></li>
               <li>|</li>
               <% if ! @wait_list %>
                 <li><%= link_to 'Show my invoice', :controller => 'registration', :action => 'invoice' %></li>

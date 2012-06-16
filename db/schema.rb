@@ -63,12 +63,10 @@ ActiveRecord::Schema.define(:version => 20120406162922) do
     t.integer  "amount_paid",               :default => 0, :null => false
     t.integer  "amount_owed",               :default => 0, :null => false
     t.integer  "user_id",                                  :null => false
+    t.string   "gender",       :limit => 1,                :null => false
     t.string   "zip_code"
-    t.string   "mobile"
-    t.string   "country"
-    t.string   "comments"
     t.string   "shirt"
-    t.string   "gender",       :limit => 1
+    t.string   "mobile"
   end
 
   create_table "users", :force => true do |t|

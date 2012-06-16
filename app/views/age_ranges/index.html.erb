@@ -10,7 +10,7 @@
     <td><%=h "#{age_range.low} - #{age_range.high}" %></td>
     <td><%= link_to 'Show', age_range %></td>
     <td><%= link_to 'Edit', edit_age_range_path(age_range) %></td>
-    <td><%= link_to 'Destroy', age_range, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', age_range, :data => {:confirm => 'Are you sure?'}, :method => :delete %></td>
   </tr>
 <% end %>
 </table>

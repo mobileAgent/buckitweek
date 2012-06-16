@@ -49,7 +49,7 @@ class AdminControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_not_nil assigns(:registration)
     r = Registration.find(r.id)
-    assert_equal e.registration_cost, r.amount_owed
+    assert_equal 1000, r.amount_owed
   end
   
   test "delete registration" do
