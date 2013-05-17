@@ -48,6 +48,7 @@ gem 'exception_notification', :require => 'exception_notifier'
 
 group :development, :test do
    gem 'webrat'
-   gem 'factory_girl_rails'
    gem 'autotest'
 end
+
+gem 'factory_girl_rails', :group => :test

@@ -2,129 +2,147 @@
 
      <h2>What is Buckit Week?</h2>
      
-     <p>In a nutshell, Buckit Week is a time of intensive, systematic
-     teaching of the Word of God in areas of key Bible concepts.</p>
-     <% if @main_event && @main_event.topic_list.size > 0 -%>
-     Additionally
-       <ol>
-          <% @main_event.topic_list.each do |topic| -%>
-            <li><%=h topic %></li>
-          <% end -%>
-       </ol>
-      <% end -%>
+    <p>This year, Buckit week will be different than in the
+    past. Buckit week <%= @event_year %> will be a speaker's week—a time devoted to
+    working on messages with brothers. The number of participants will
+    determine the venue/lodging and somewhat the structure of the
+    week. Though the exact structure will be dependent on the
+    attendees, we will generally be working on actual messages
+    (already given or to be given) along with general principles of
+    communicating truth. We also plan to prayerfully learn from each
+    other during the days together.</p>
 
-      <p>That's a lot of material to cover in 5 days time, so don't plan
-       on eating or sleeping. Ok maybe a little, but it is going to be
-       intensive.
-     </p>
+    <% if @main_event %>
+    <p>It is scheduled to be held <%= @main_event.event_date_string %>
+    at or near <%= @main_event.location %>.</p>
+    <% end %>
+
+    <p>In a nutshell, Buckit Week is a time of intensive, systematic
+    teaching of the Word of God in areas of key Bible concepts.
+    However, for <%= @event_year %>, Buckit Week will be a special week for
+    speakers. Our time will be concentrated on the preparation and
+    delivery of messages.</p>
+
+
 
     <h2>Is this a repeat of Buckit Week <%= @event_year - 1 %>?</h2>
-    <p>The format is very similar but almost all of the material is new for <%= @event_year %>.</p>
 
-    <h2>Does this mean Buckit Week is just for &quot;advanced&quot; students of the Bible?</h2>
-    <p>Not at all. There will be men and women at various stages
-    in their Christian growth and experience. A good attitude toward
-    learning during this week is more important than an advanced background.</p>
+   <p>Not at all. This is the first time we are holding the special
+   week for brothers.</p>
+   
+   <h2>Does this mean Buckit Week is just for &quot;advanced&quot;
+   students of the Bible or &quot;expert&quot; speakers?</h2>
 
+   <p>No—there will be men at various stages in their Christian growth
+   and experience. A good attitude toward learning during this week is
+   more important than an advanced background.</p>
 
-    <h2>Will there be time to fellowship with the other believers there?</h2>
-    <p>Yes! - the meals and breaks will be great times for this. Some of the
-    homework will also lend itself to working together.</p>
+   <h2>Will there be time to fellowship with the other believers there?</h2>
 
-    <h2>When is Buckit Week?</h2>
-    <% if @main_event %>
-      <p><b><%= @main_event.event_date_string %></b> This is a <%= @main_event.start_day_of_week%>
-      evening through <%=@main_event.end_day_of_week%> evening. The reason for the scheduling is
-      to allow people to be part of Buckit Week and still have time to
-      rest from (or rest for) another activity the previous (or next)
-      week.</p>
-    <% else %>
-      <p>Nothing is definite yet. Check back later on this one.</p>
-    <% end %>
+   <p>Yes! - The meals and breaks will be great times for this. Much
+   of the work on messages will lend itself to working together.</p>
 
-    <h2>Where is Buckit Week?</h2>
-    <% if @main_event %>
-      <p>Buckit Week <%= @main_event.year %> will be held in the
-      <%=h @main_event.hotel %> in <%=h @main_event.location %>.
-      This <%= @main_event.hotel_confirmed? ? "is" : "will be"%> a nice
-      hotel with lots of
-      amenities convenient to the needs of this week. Specific
-      questions about any Buckit Week
-      arrangements should be made through <%= link_to 'Buckit week
-      contacts', :controller => 'welcome', :action => 'contact' %>
-      rather than direct contact with the hotel.</p>
-    <% else %>
-      <p>Nothing is definite yet. Check back later on this one.</p>
-    <% end %>
+   <h2>When is Buckit Week?</h2>
 
-    <h2>What if I am flying in for Buckit Week?</h2>
-    <p> The best airports to fly into probably will be in the
-    Washington, DC area. Enough people will be attending from there
-    that rides can be arranged. The three Washington airports are
-    Washington-Dulles (<a href="http://www.metwashairports.com/Dulles/" title="IAD" target="_new">IAD</a>), Reagan-National (<a href="http://www.metwashairports.com/national/" title="DCA" target="_new">DCA</a>), and
-    Baltimore-Washington (<a href="http://www.bwiairport.com/" title="BWI Airport" target="_new">BWI</a>).  There is a very small regional airport in
-    Hagerstown itself (<a href="http://www.flyhagerstown.com/" title="HGR" target="_new">HGR</a>), but we expect the fares could be higher
-    there and flights there might be harder to find.</p>
+   <% if @main_event %>
+   <p><%= @main_event.event_date_string %>
+   This is a <%= @main_event.start_day_of_week %> evening through
+   <%= @main_event.end_day_of_week %>
+   afternoon. The reason for the scheduling is to allow people to be
+   part of Buckit Week and still have time to rest from (or rest for)
+   another activity the previous (or next) week.</p>
+   <% else %>
+   <p>TBD.</p>
+   <% end %>
 
-    <h2>What is the cost for Buckit Week?</h2>
-    <p>The week's activities are being provided for a very low
-    registration fee of $<%=@main_event ? @main_event.registration_cost : "(TBD)"%> per person.
-    This includes meals and
-    lodging in the hotel at 3 persons per room. The true cost of the
-    the week is more than this amount, but we want to encourage those
-    whom the Lord may be leading to attend and who will be most likely
-    to benefit from the week's activities. To this end we are looking
-    to the Lord and operating in dependence on Him to supply the
-    needs.</p>
-    
-    <h2>Who can attend Buckit Week?</h2>
-    <p>We are seeking a wide range of ages. While the week could be
-    seen as generally geared for 18-30+, it is also geared for some in
-    the <%= AgeRange.ordered[0].to_s %> age range who would benefit greatly and are certainly
-    encouraged to come with special permission. Please <%= link_to 'contact the registrar', :controller => 'welcome', :action => 'contact' %> for specific guidance if you are in that range and
-    wish to attend. The maxiumum suggested age for Buckit Week is
-    45. Married couples are welcome, but contact the registrar
-    for extra information.</p>
+   <h2>Where is Buckit Week?</h2>
 
-    <h2>Why use &quot;University&quot; in the description of the week?</h2>
-    <p>The reason is to accurately distinguish the week from other
-    kinds of good week-long activities like camps and conferences.</p>
+   <% if @main_event %>
+   <p>Buckit Week <%= @event_year %> will be held at or near
+   <%= @main_event.location %>. The
+   exact details of the lodging and meeting venue will be dependent on
+   the number of attendees. We have always been pleased with our
+   accommodations, and we do not expect this year to be different.</p>
+   <% else %>
+   <p>TBD</p>
+   <% end %>
 
-    <h2>Is Buckit Week just another week-long conference?</h2>
-    <p>No. The teaching at Buckit Week is in a classroom setting, with
-    tables, notebooks, resources, homework, and exams (not scary ones,
-    though!)</p>
+   <h2>What if I am flying in for Buckit Week?</h2>
 
-    <h2>Is Buckit Week a camp?</h2>
-    <p>No. First, it is not held at a camp. Second, the goals are
-    different than any &quot;camp&quot; we know about. </p>
+   <p>The best airports to fly into probably will be in the
+   Washington, DC area. Rides should be able to be arranged. The three
+   Washington airports are Washington-Dulles (IAD), Reagan-National
+   (DCA), and Baltimore-Washington (BWI).</p>
 
-    <h2>Will Buckit Week be boring?</h2>
-    <p>HEY--We're calling it Buckit Week! Enough said!</p>
+   <h2>What is the cost for Buckit Week?</h2>
 
-    <h2>When should I register?</h2>
-    <p>As soon as you can commit to it. The room size and number or
-    participants varies from year to year so do not delay unnecessarily.</p>
+   <% if @main_event %>
+   <p>The week's activities are being provided for a very low
+   registration fee of $<%= @main_event.registration_cost %> per
+   person. This includes meals and lodging. The true cost of the week
+   is more than this amount, but we want to encourage those whom the
+   Lord may be leading to attend and who will be most likely to
+   benefit from the week's activities. To this end we are looking to
+   the Lord and operating in dependence on Him to supply the
+   needs.</p>
+   <% else %>
+   <p>TBD</p>
+   <% end %>
 
+   <h2>Who can attend Buckit Week?</h2>
 
-    <h2>Who is involved with Buckit week?</h2>
+   <p>While Buckit Week is normally for brothers and sisters,
+   <%= @event_year %>
+   will be a brothers only week. We are seeking a wide range of
+   ages. Traditionally, Buckit Week has been geared toward the 18- 30+
+   age range. However, this year the topic of training (preparation
+   and delivery of messages) will dictate the attendees. That is, any
+   brother led to engage in this area of training is welcome to
+   attend. All attendees will be expected to be active participants in
+   the workshop sessions, including practicing message delivery.</p>
 
-    <p>Special thanks to all those who put in a lot of effort in the
-    preparations for Buckit Week <%= @event_year %>, there are many.
-    Craig and Allie Shakarji will be directing the activities during the
-    week.</p>
+   <h2>Why use &guot;University&quot; in the description of the week?</h2>
 
-    <h2>How can I help?</h2>
+   <p>The reason is to accurately distinguish the week from other
+   kinds of good, week-long activities like camps and conferences.</p>
 
-    <p>Please pray for the activities during Buckit Week. Pray that those
-    whom the Lord would want to attend will be there and will find benefit
-    in this concentrated time of study. Pray for the speakers. Pray for 
-    safety during travel for those attending from out of town.</p>
+   <h2>Is Buckit Week just another week-long conference?</h2>
 
-    <p>As the Lord may lead, individuals or assemblies may make tax
-    deductible contributions toward Buckit Week expenses beyond what
-    is covered by the registration fee. Checks can be made out to
-    <strong>Buckit Week</strong>, and mailed to
+   <p>No. The teaching at Buckit Week is in a classroom setting, with
+   tables, notebooks, resources, homework, and exams (not scary ones,
+   though!)</p>
+
+   <h2>Is Buckit Week a camp?</h2>
+
+   <p>No. First, it is not held at a camp. Second, the goals are
+   different than any &quot;camp&quot; we know about.</p>
+
+   <h2>Will Buckit Week be boring?</h2>
+
+   <p>HEY--We're calling it Buckit Week! Enough said!</p>
+
+   <h2>When should I register?</h2>
+
+   <p>As soon as you can commit to it. While we will seek to find
+   appropriate lodging for the number attending, we could still fill
+   up.</p>
+
+   <h2>Who is involved with Buckit week?</h2>
+
+   <p>Special thanks to all those who put in a lot of effort in the
+   preparations for Buckit Week <%= @event_year %>, there are many. Craig Shakarji
+   will be directing the activities during the week.</p>
+
+   <h2>How can I help?</h2>
+
+   <p>Please pray for the activities during Buckit Week. Pray that
+   those whom the Lord would want to attend will be there and will
+   find benefit in this concentrated time of study. Pray for the
+   training sessions. Pray for safety during travel for those
+   attending from out of town.  As the Lord may lead, individuals or
+   assemblies may make tax deductible contributions toward Buckit Week
+   expenses beyond what is covered by the registration fee. Checks can
+   be made out to <strong>Buckit Week</strong>, and mailed to
          <blockquote>
               Craig Shakarji / Buckit Week<br />
               430 Little Quarry Rd<br />

@@ -43,6 +43,15 @@ class Event < ActiveRecord::Base
   def hotel_confirmed?
     return hotel && hotel.length > 0 && hotel.index(/TBD/).nil?
   end
+
+  def full_location
+    if hotel_confirmed?
+      "#{hotel}, #{location}"
+    else
+      location
+    end
+  end
+    
   
   # Scale the registration cost by how many
   # times the user has attended before
@@ -55,7 +64,8 @@ class Event < ActiveRecord::Base
   end
 
   def speakers
-    s = [speaker_one, speaker_two]
+    s = [speaker_one]
+    s << speaker_two unless (speaker_two.nil? || speaker_two.blank?)
     s << speaker_three unless (speaker_three.nil? || speaker_three.blank?)
     s
   end

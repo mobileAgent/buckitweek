@@ -3,7 +3,7 @@
 
 <div class="scripturebox vevent" title="BUCKIT Week <%= @event_year %>">
   <span class="summary">BUCKIT<span class="altcolor">WEEK</span><%= @event_year %></span>
-  <% if @main_event.speakers.first.index(/Cancel/) %>
+  <% if @main_event && @main_event.speakers.first.index(/Cancel/) %>
        <p>BuckitWeek <%=@event_year %> registration is closed. If you have questions 
            about the event, please email registrar@buckitweek.org or call Craig
            at 301-509-2180</p>
@@ -11,7 +11,7 @@
   <ul>
     <li> Teachers: <%= @main_event.speakers.to_sentence %>
     </li>
-    <li class="location"><%=h @main_event.hotel %>, <%=h @main_event.location %></li>
+    <li class="location"><%=h @main_event.full_location %></li>
     <li> Registration Cost: $<%=h @main_event.registration_cost %></li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>
     <li> Topics listed on the <%= link_to 'FAQ page', '/welcome/faq' %></li>
