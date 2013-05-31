@@ -9,12 +9,16 @@
            at 301-509-2180</p>
   <% elsif @main_event %>
   <ul>
-    <li> Teachers: <%= @main_event.speakers.to_sentence %>
-    </li>
+    <% if @event_year == 2013 %>
+       <li>Special topic for 2013 - On the preparation and delivery of messages</li>
+       <li>Workshop Leader: <%= @main_event.speakers.to_sentence %></li>
+    <% else %>
+       <li> Teachers: <%= @main_event.speakers.to_sentence %></li>
+    <% end %>
     <li class="location"><%=h @main_event.full_location %></li>
     <li> Registration Cost: $<%=h @main_event.registration_cost %></li>
     <li> <abbr class="dtstart" title="<%= @main_event.start_cal %>"><%= @main_event.start_text %></abbr> - <abbr class="dtend" title="<%= @main_event.end_cal %>"><%= @main_event.end_text %></abbr>, <%= @event_year %></li>
-    <li> Topics listed on the <%= link_to 'FAQ page', '/welcome/faq' %></li>
+    <li> Details given on the <%= link_to 'FAQ page', '/welcome/faq' %></li>
     <% if @main_event.registration_open %>
        <li><%= link_to 'Online Registration is Open!', :controller => 'registration', :action => 'register' %>!</li>
     <% else %>
