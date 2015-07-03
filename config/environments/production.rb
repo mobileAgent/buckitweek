@@ -19,7 +19,7 @@ Buckitweek::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.middleware.use ExceptionNotifation::Rack,
+  config.middleware.use ExceptionNotification::Rack,
   :email => {
     :email_prefix => "[BUCKITWEEK] ",
     :sender_address => %{"Exception Notifier" <support@buckitweek.org>},
