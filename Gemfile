@@ -8,8 +8,8 @@ gem 'rails', '3.2.13'
 gem 'mysql2'
 
 
-gem 'execjs'
-gem 'therubyracer'
+# gem 'execjs'
+# gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -44,7 +44,7 @@ gem 'jquery-rails'
 gem 'will_paginate',
   :git => 'git://github.com/mislav/will_paginate.git'
 
-gem 'exception_notification', :require => 'exception_notifier'  
+gem 'exception_notification'
 
 group :development, :test do
    gem 'thin'

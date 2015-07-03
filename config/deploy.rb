@@ -21,6 +21,7 @@ set :repository_cache, "git_master"
 set :deploy_via, :remote_cache
 set :git_shallow_clone, 1
 set :scm_verbose, true
+set :use_sudo, false
 
 set :server_name, "buckitweek.org"
 
@@ -89,7 +90,7 @@ task :setup_config, :roles => :app do
   put YAML::dump(buffer),"#{release_path}/config/database.yml",:mode=>0644
 
   # Clean up tmp and relink to shared for session and cache data
-  sudo "rm -rf #{release_path}/tmp" # because it should not be in svn
+  run "rm -rf #{release_path}/tmp" # because it should not be in svn
   run "ln -nfs #{deploy_to}/shared/tmp #{release_path}/tmp"
   run "ln -nfs #{deploy_to}/shared/audio #{current_release}/public/audio"
 end
