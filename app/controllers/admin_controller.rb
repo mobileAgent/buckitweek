@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 
-   before_filter :authorize_admin
+   before_action :authorize_admin
 
    def index
      @title = 'Adminstration'
@@ -11,7 +11,9 @@ class AdminController < ApplicationController
    def list_registration
      @title = 'Admin - List Registered'
      if @main_event
-       @registrations = Registration.find(:all, :conditions => ["event_id = ?",@main_event.id], :order => "last_name")
+       @registrations = Registration.where("event_id = ?", @main_event.id)
+                          .order("last_name")
+                          .all
      else
        @registrations = []
      end

@@ -1,6 +1,6 @@
 class AgeRangesController < ApplicationController
   
-  before_filter :authorize_admin, :except => [:show]
+  before_action :authorize_admin, :except => [:show]
   
   # GET /age_ranges
   # GET /age_ranges.xml

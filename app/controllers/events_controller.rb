@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :authorize_admin
+  before_action :authorize_admin
 
   # GET /events
   # GET /events.xml

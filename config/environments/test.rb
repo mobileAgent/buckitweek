@@ -26,5 +26,6 @@ Buckitweek::Application.configure do
   # No CSRF in test
   config.action_controller.allow_forgery_protection  = false
 
-
+  config.eager_load = false
+  
 end

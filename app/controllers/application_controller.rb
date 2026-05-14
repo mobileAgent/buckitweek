@@ -7,15 +7,16 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   # Get the event we are working on
-  before_filter :get_event
+  before_action :get_event
 
   protected
 
   def get_event
-    @main_event = 
-      Event.last(:conditions => ["end_date >= ?", Time.now],
-                 :order => 'start_date asc')
-    @event_year = @main_event ? @main_event.year : Event.count > 0 ? (Event.last.year+1) : (Time.now.year+1)
+    @main_event = Event.where("end_date >= ?", Time.now)
+                    .order(start_date: :asc)
+                    .last
+    @event_year = @main_event ? @main_event.year :
+                    Event.count > 0 ? (Event.last.year+1) : (Time.now.year+1)
   end
   
   def authorize

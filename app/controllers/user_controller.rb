@@ -1,6 +1,6 @@
 class UserController < ApplicationController
 
-  before_filter :authorize, :only => [:change_password, :update_password]
+  before_action :authorize, :only => [:change_password, :update_password]
 
    def add_user
       @user = User.new(params[:user])
