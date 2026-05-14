@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.22.5'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+# gem 'mysql2', '~> 0.4.10'
+# gem 'mysql2', '~> 0.3.21'
+gem 'mysql2', '~> 0.5.5'
 
-gem 'mysql2'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
-# gem 'execjs'
-# gem 'therubyracer'
+gem 'ffi', '~> 1.15.5'
+gem 'bigdecimal', '~> 1.4.4'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -26,7 +26,7 @@ end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.5', require: 'bcrypt'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
@@ -40,16 +40,13 @@ gem 'capistrano'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-gem 'jquery-rails'
 gem 'will_paginate',
-  :git => 'git://github.com/mislav/will_paginate.git'
+  :git => 'https://github.com/mislav/will_paginate.git'
 
 gem 'exception_notification'
 
 group :development, :test do
    gem 'thin'
-   gem 'webrat'
-   gem 'autotest'
 end
 
 gem 'factory_girl_rails', :group => :test
