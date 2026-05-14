@@ -25,4 +25,7 @@ Buckitweek::Application.configure do
     :sender_address => %{"Exception Notifier" <support@buckitweek.org>},
     :exception_recipients => %w{flester@gmail.com}  
   }
+
+  config.eager_load = true
+  
 end

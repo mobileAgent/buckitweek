@@ -4,7 +4,9 @@ class FaqsController < ApplicationController
    # GET /faqs.xml
    def index
       @title = 'Frequently Asked Questions'
-      @faqs = Faq.find(:all, :conditions => "publish = true", :order => 'list_order')
+      @faqs = Faq.where("publish = true")
+                .order("list_order")
+                .all
       respond_to do |format|
          format.html # index.html.erb
          format.xml  { render :xml => @faqs }

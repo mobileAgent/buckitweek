@@ -1,6 +1,6 @@
 class LoginController < ApplicationController
 
-  before_filter :authorize, :except => [:login, :forgotten_password, :reset_password]
+  before_action :authorize, :except => [:login, :forgotten_password, :reset_password]
 
   def index
      redirect_to :action => 'login'

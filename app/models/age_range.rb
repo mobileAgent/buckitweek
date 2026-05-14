@@ -7,8 +7,9 @@ class AgeRange < ActiveRecord::Base
 
   attr_accessible :low, :high
 
-  scope :ordered, :order => "low ASC"
-
+  # scope :ordered, :order => "low ASC"
+  scope :ordered, -> { order(low: :asc) }
+  
   validate  :range_order
   
   def range_order
