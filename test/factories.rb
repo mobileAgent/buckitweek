@@ -45,9 +45,9 @@ FactoryGirl.define do
     phone "123.123.1234"
     first_name "Fname"
     last_name "Lname"
-    user FactoryGirl.create(:user)
-    age_range FactoryGirl.create(:age_range)
-    event FactoryGirl.create(:event)
+    association :user
+    association :age_range
+    association :event
     amount_owed 100
     zip_code "12345"
     shirt %w(xxl xl l m s).sample
