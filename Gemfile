@@ -46,7 +46,14 @@ gem 'will_paginate',
 gem 'exception_notification'
 
 group :development, :test do
-   gem 'thin'
+  gem 'thin'
 end
 
-gem 'factory_girl_rails', :group => :test
+group :test do
+  gem 'rspec-rails',       '~> 3.9.0'
+  gem 'capybara',          '~> 2.18.0'
+  gem 'database_cleaner',  '~> 1.8.5'
+  gem 'factory_girl_rails'
+  gem 'launchy'
+  gem 'test-unit',         '~> 3.0'  # required by rspec-rails on Ruby 2.2+
+end
