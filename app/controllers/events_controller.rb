@@ -45,7 +45,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.xml
   def create
-    @event = Event.new(params[:event])
+    @event = Event.new(event_params)
     respond_to do |format|
       if @event.save
         expire_page :controller => :welcome, :action => :index
@@ -64,6 +64,7 @@ class EventsController < ApplicationController
   # PUT /events/1.xml
   def update
     @event = Event.find(params[:id])
+    @event.update(event_params)
 
     respond_to do |format|
       if @event.update_attributes(params[:event])
@@ -92,4 +93,15 @@ class EventsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def event_params
+    params.require(:event).permit(
+      :location, :start_date, :end_date, :speaker_one, :speaker_two,
+      :speaker_three, :registration_count, :registration_cost, :max_seats,
+      :topics, :hotel, :year, :registration_open
+    )
+  end
+
 end

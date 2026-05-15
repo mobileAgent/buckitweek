@@ -1,9 +1,14 @@
-Buckitweek::Application.routes.draw do 
+Rails.application.routes.draw do
   
   resources :age_ranges
   resources :events
   resources :faqs
 
+  # TODO (Rails 6.0): the dynamic :controller route below must be replaced
+  # with explicit routes for each remaining catch-all-served controller
+  # (audio, welcome non-root actions, login, user, admin). Search views
+  # for link_to/url_for callers to enumerate the URLs in use.
+  
   root :to => 'welcome#index'
   
   match '/login' => 'login#login', via: :get

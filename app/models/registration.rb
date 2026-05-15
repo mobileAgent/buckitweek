@@ -6,11 +6,6 @@ class Registration < ActiveRecord::Base
 
   before_validation :normalize
 
-  attr_accessible :age_range_id, :address1, :address2, :city, :state,
-                  :zip_code, :phone, :gender, :first_name, :last_name, 
-                  :mobile, :country, :comments, :shirt, :middle_name
-
-
   validates_presence_of :age_range_id, :message => 'Age Range must be selected'
   validates_presence_of [:address1,:city, :state, :zip_code, :phone]
   validates_format_of :gender, :with => /\A[MF]\Z/i, :message => 'We need gender for room assignment'

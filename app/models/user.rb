@@ -14,8 +14,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :password_confirmation
 
-  attr_protected :admin
-
   validates_confirmation_of :password
 
   validate :password_check

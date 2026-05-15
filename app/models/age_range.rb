@@ -5,8 +5,6 @@ class AgeRange < ActiveRecord::Base
   validates_presence_of   :low
   validates_presence_of   :high
 
-  attr_accessible :low, :high
-
   # scope :ordered, :order => "low ASC"
   scope :ordered, -> { order(low: :asc) }
   
