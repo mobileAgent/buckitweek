@@ -43,7 +43,7 @@ class AgeRangesController < ApplicationController
   # POST /age_ranges
   # POST /age_ranges.xml
   def create
-    @age_range = AgeRange.new(params[:age_range])
+    @age_range = AgeRange.new(age_rage_params)
     respond_to do |format|
       if @age_range.save
         flash[:notice] = 'AgeRange was successfully created.'
@@ -62,7 +62,7 @@ class AgeRangesController < ApplicationController
     @age_range = AgeRange.find(params[:id])
 
     respond_to do |format|
-      if @age_range.update_attributes(params[:age_range])
+      if @age_range.update_attributes(age_range_params)
         flash[:notice] = 'AgeRange was successfully updated.'
         format.html { redirect_to(@age_range) }
         format.xml  { head :ok }
@@ -84,4 +84,14 @@ class AgeRangesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  private
+
+  def age_range_params
+    params.require(:age_range).permit(
+      :low, :high
+    )
+  end
+
+
 end

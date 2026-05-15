@@ -42,10 +42,10 @@ class RegistrationController < ApplicationController
    end
 
    def create
-      @registration = Registration.new(params[:registration])
+      @registration = Registration.new(registration_params)
       @wait_list = (params[:wait_list] == 'true')
       if !@user || @user.new_record?
-         @user = User.new(params[:user])
+         @user = User.new(user_params)
          @user.last_visit = Time.now
          if ! @user.save
            flash[:notice] = 'There was an error creating your user account'
@@ -82,7 +82,7 @@ class RegistrationController < ApplicationController
      @user = User.find_by_id(session[:user_id])
      @registration = Registration.where("user_id = ? and event_id = ?", @user.id, @main_event.id)
                        .first
-     if @registration.update_attributes(params[:registration])
+     if @registration.update(registration_params)
         flash[:notice] = 'Registration Updated'
      else
        flash[:notice] = 'Update failed'
@@ -105,9 +105,8 @@ class RegistrationController < ApplicationController
      @user_scale_factor = @user ? Registration.where("user_id = ?", @user.id)
                                     .count : 0
      @registration = @registration ||
-                     (@user && Registration.find("user_id = ? and event_id = ?",  @user.id, @main_event.id)
-                                 .first) ||
-       Registration.new(params[:registration])
+                     (@user && Registration.where(user_id: @user.id, event_id: @main_event.id).first) ||
+       Registration.new
 
      logger.debug "Doing setup on registration #{@registration.inspect}"
      
@@ -120,6 +119,22 @@ class RegistrationController < ApplicationController
          @registration.amount_paid = 0
        end
      end
+   end
+
+   private
+
+   def registration_params
+     params.require(:registration).permit(
+       :age_range_id, :address1, :address2, :city, :state,
+       :zip_code, :phone, :gender, :first_name, :last_name, 
+       :mobile, :country, :comments, :shirt, :middle_name
+     )
+   end
+
+   def user_params
+     params.require(:user).permit(
+       :email
+     )
    end
    
 end
