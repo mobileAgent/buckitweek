@@ -1,0 +1,28 @@
+# Dockerfile.dev
+# FROM ruby:2.6.10-bullseye
+FROM ruby:2.7.8-bullseye
+
+RUN apt-get update && apt-get install -y \
+    build-essential default-libmysqlclient-dev libsqlite3-dev \
+    libxml2-dev libxslt1-dev nodejs git && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy Gemfile first to get layer caching on `bundle install`.
+RUN gem install bundler -v 2.4.22
+COPY Gemfile Gemfile.lock* /app/
+RUN bundle _2.4.22_ install
+
+# Copy the rest of the app.
+COPY . /app
+
+# Install the entrypoint that auto-runs `bundle install` on container
+# start when the lockfile has changed since the image was built.
+COPY bin/docker-entrypoint /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint
+
+EXPOSE 3000
+ENTRYPOINT ["docker-entrypoint"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+
