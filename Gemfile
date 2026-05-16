@@ -51,8 +51,13 @@ end
 # To use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'   # was bcrypt-ruby
 
-# Deploy with Capistrano
-gem 'capistrano'
+# Deploy with Capistrano (3.x)
+group :development do
+  gem 'capistrano',         '~> 3.17'
+  gem 'capistrano-rails',   '~> 1.6'
+  gem 'capistrano-bundler', '~> 2.1'
+  gem 'capistrano-rbenv',   '~> 2.2'
+end
 
 gem 'exception_notification'
 

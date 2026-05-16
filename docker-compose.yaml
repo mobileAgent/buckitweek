@@ -10,9 +10,13 @@ services:
   web:
     build: { context: ., dockerfile: Dockerfile.dev }
     ports: ["3000:3000"]
-    volumes: ["./:/app", "bundle:/usr/local/bundle"]
     depends_on: [db]
     # This added for ruby 2.7, will be removed on 3.0
+    volumes:
+      - "./:/app"
+      - "bundle:/usr/local/bundle"
+      - /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock
     environment:
       RUBYOPT: "-W:no-deprecated"
+      SSH_AUTH_SOCK: /run/host-services/ssh-auth.sock
 volumes: { bundle: {} }
