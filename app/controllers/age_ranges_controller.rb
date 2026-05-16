@@ -62,7 +62,7 @@ class AgeRangesController < ApplicationController
     @age_range = AgeRange.find(params[:id])
 
     respond_to do |format|
-      if @age_range.update_attributes(age_range_params)
+      if @age_range.update(age_range_params)
         flash[:notice] = 'AgeRange was successfully updated.'
         format.html { redirect_to(@age_range) }
         format.xml  { head :ok }

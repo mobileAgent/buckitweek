@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     @event.update(event_params)
 
     respond_to do |format|
-      if @event.update_attributes(params[:event])
+      if @event.update(params[:event])
         expire_page :controller => :welcome, :action => :index
         expire_page :controller => :welcome, :action => :faq
         flash[:notice] = 'Event was successfully updated.'

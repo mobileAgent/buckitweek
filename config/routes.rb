@@ -11,13 +11,21 @@ Rails.application.routes.draw do
   
   root :to => 'welcome#index'
   
-  match '/login' => 'login#login', via: :get
-  match '/registration' => 'registration#index', via: :get
-  match '/registration/register' => 'registration#register', via: :get
+  get '/' => 'welcome#index'
+  get '/audio' => 'audio#index'
+  get '/welcome' => 'welcome#index'
+  get '/welcome/flyer' => 'welcome#flyer'
+  get '/welcome/bios' => 'welcome#bios'
+  get '/welcome/faq' => 'welcome#faq'
+  get '/welcome/contact' => 'welcome#contact'
+  get '/login' => 'login#login'
+  get '/registration' => 'registration#index'
+  get '/registration/register' => 'registration#register'
+
 
   # todo: revisit this and make explicit routes for each controller
-  match '/:controller(/:action(/:id(.:format)))',
-        via: [:get, :post],
-        constraints: { controller: /audio|welcome|age_ranges|events|login|user|admin|faqs|registration/ }
+  # match '/:controller(/:action(/:id(.:format)))',
+  #       via: [:get, :post],
+  #       constraints: { controller: /audio|welcome|age_ranges|events|login|user|admin|faqs|registration/ }
   
 end
