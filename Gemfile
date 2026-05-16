@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '6.1.7.10'
+gem 'rake'   # explicit so it's never excluded from production bundle
 
 # Strong parameters is now the default, but Rails 4 ships the
 # protected_attributes gem as a back-compat layer so your existing
