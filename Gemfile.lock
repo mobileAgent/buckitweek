@@ -290,6 +290,7 @@ DEPENDENCIES
   nokogiri
   rails (= 6.1.7.10)
   rails-controller-testing
+  rake
   rspec-rails (~> 4.1)
   sass-rails (>= 6)
   test-unit (~> 3.0)
