@@ -1,0 +1,18 @@
+# docker-compose.yml
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+      MYSQL_DATABASE: buckitweek_development
+    ports: ["3306:3306"]
+    volumes: ["./tmp/mysql:/var/lib/mysql"]
+  web:
+    build: { context: ., dockerfile: Dockerfile.dev }
+    ports: ["3000:3000"]
+    volumes: ["./:/app", "bundle:/usr/local/bundle"]
+    depends_on: [db]
+    # This added for ruby 2.7, will be removed on 3.0
+    environment:
+      RUBYOPT: "-W:no-deprecated"
+volumes: { bundle: {} }

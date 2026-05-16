@@ -29,8 +29,7 @@ gem 'will_paginate', '~> 3.3'
 # Caching gems
 gem 'actionpack-page_caching', '~> 1.2'
 
-# nokogiri pin stays until we bump Ruby
-gem 'nokogiri', '~> 1.13.10'
+gem 'nokogiri'
 
 # bigdecimal pin no longer needed in 4.2 — ActiveSupport handles it
 # (you can remove the gem 'bigdecimal' line). Keep ffi pin though.
