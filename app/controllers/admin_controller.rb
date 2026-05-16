@@ -35,7 +35,7 @@ class AdminController < ApplicationController
    def update_registration
      @registration = Registration.find(params[:id])
      if @registration
-       @registration.update_attributes(params[:registration])
+       @registration.update(registration_params)
        @registration.amount_paid = params[:registration][:amount_paid]
        @registration.amount_owed = params[:registration][:amount_owed]
        @registration.save!
@@ -63,4 +63,13 @@ class AdminController < ApplicationController
    def update_faqs
    end
 
+   private
+
+   def registration_params
+     params.require(:registration).permit(
+       :age_range_id, :address1, :address2, :city, :state,
+       :zip_code, :phone, :gender, :first_name, :last_name, 
+       :mobile, :country, :comments, :shirt, :middle_name
+     )
+   end
 end

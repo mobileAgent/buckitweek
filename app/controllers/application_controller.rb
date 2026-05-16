@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
                     .order(start_date: :asc)
                     .last
     @event_year = @main_event ? @main_event.year :
-                    Event.count > 0 ? (Event.last.year+1) : (Time.now.year+1)
+                    Time.now.year+1
   end
   
   def authorize

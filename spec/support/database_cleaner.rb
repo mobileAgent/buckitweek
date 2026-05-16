@@ -1,4 +1,4 @@
-require 'database_cleaner'
+require 'database_cleaner/active_record'
 
 RSpec.configure do |config|
   # Wipe the test database once before the suite to be sure we start clean.
