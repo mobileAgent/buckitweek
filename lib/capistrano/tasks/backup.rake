@@ -2,7 +2,10 @@ namespace :db do
   desc "Backup the remote production database to backups/ on the deployer machine"
   task :backup do
     on roles(:db), primary: true do
-      db_config = YAML.load_file("config/database.yml")["production"]
+      # Read credentials from the server's shared config — production
+      # credentials never leave the server.
+      db_yml = capture("cat #{shared_path}/config/database.yml")
+      db_config = YAML.safe_load(db_yml, aliases: true)["production"]
 
       filename    = "#{fetch(:application)}.dump.#{Time.now.to_i}.sql.bz2"
       remote_path = "/tmp/#{filename}"

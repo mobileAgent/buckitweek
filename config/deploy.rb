@@ -33,12 +33,10 @@ append :linked_dirs,
   "tmp/sockets",
   "public/audio"
 
-# Files symlinked from shared/ — uncomment when you want production
-# database credentials out of the repo. You'd then put the real
-# database.yml at /var/apps/buckitweek/shared/config/database.yml on
-# the server (one-time setup), and this line would symlink it into
-# each new release.
-# append :linked_files, "config/database.yml"
+# Files symlinked from shared/ into each release. Production
+# credentials live in /var/apps/buckitweek/shared/config/database.yml
+# on the server and are never committed to the repo.
+append :linked_files, "config/database.yml", "config/master.key", "config/credentials.yml.enc"
 
 # Default value for keeping the SSH connection open during long tasks
 set :ssh_options, {
